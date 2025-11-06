@@ -1,1 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 Senate Elections</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e3c72;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .seat-count {
+            text-align: center;
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            font-weight: bold;
+        }
+
+        .dem-count {
+            color: #2563eb;
+        }
+
+        .rep-count {
+            color: #dc2626;
+        }
+
+        .uncalled-count {
+            color: #6b7280;
+            font-size: 0.9em;
+        }
+
+        .senate-diagram {
+            perspective: 1200px;
+            margin: 40px auto;
+            max-width: 900px;
+        }
+
+        .senate-chamber {
+            transform-style: preserve-3d;
+            transform: rotateX(25deg);
+            margin: 0 auto;
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 8px;
+            transform-style: preserve-3d;
+        }
+
+        .row:nth-child(1) { transform: translateZ(60px); }
+        .row:nth-child(2) { transform: translateZ(40px); }
+        .row:nth-child(3) { transform: translateZ(20px); }
+        .row:nth-child(4) { transform: translateZ(0px); }
+
+        .seat {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            box-shadow:
+                0 4px 6px rgba(0, 0, 0, 0.2),
+                0 2px 4px rgba(0, 0, 0, 0.15),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.2),
+                inset 0 2px 4px rgba(255, 255, 255, 0.3);
+        }
+
+        .seat.democrat {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+        }
+
+        .seat.republican {
+            background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+        }
+
+        .seat.uncalled {
+            background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            position: sticky;
+            top: 0;
+            background: white;
+            padding-bottom: 10px;
+            z-index: 10;
+        }
+
+        .race-section {
+            margin-bottom: 30px;
+        }
+
+        .race-section h3 {
+            color: #374151;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .race {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            margin-bottom: 8px;
+            background: #f9fafb;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .race:hover {
+            background: #f3f4f6;
+            transform: translateX(2px);
+        }
+
+        .race.key-race {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .race.key-race:hover {
+            background: #fde68a;
+        }
+
+        .race-name {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .race-buttons {
+            display: flex;
+            gap: 6px;
+        }
+
+        .call-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85em;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .call-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .call-btn.dem {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .call-btn.dem:hover {
+            background: #2563eb;
+        }
+
+        .call-btn.rep {
+            background: #ef4444;
+            color: white;
+        }
+
+        .call-btn.rep:hover {
+            background: #dc2626;
+        }
+
+        .call-btn.uncall {
+            background: #6b7280;
+            color: white;
+        }
+
+        .call-btn.uncall:hover {
+            background: #4b5563;
+        }
+
+        .race.called-dem {
+            background: #dbeafe;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .race.called-rep {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+        }
+
+        .majority-line {
+            text-align: center;
+            margin: 20px 0;
+            padding: 10px;
+            background: #fef3c7;
+            border-radius: 6px;
+            font-weight: bold;
+            color: #92400e;
+        }
+
+        /* Custom scrollbar */
+        .sidebar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                max-height: 600px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main-content">
+            <h1>2026 Senate Elections</h1>
+
+            <div class="seat-count">
+                <span class="dem-count">Democrats: <span id="dem-total">31</span></span>
+                <span class="rep-count">Republicans: <span id="rep-total">34</span></span>
+                <span class="uncalled-count">Uncalled: <span id="uncalled-total">35</span></span>
+            </div>
+
+            <div class="majority-line">
+                Majority: 51 seats
+            </div>
+
+            <div class="senate-diagram">
+                <div class="senate-chamber" id="senate-chamber">
+                    <!-- Seats will be generated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <h2>Senate Races</h2>
+
+            <div class="race-section">
+                <h3>Key Races</h3>
+                <div id="key-races"></div>
+            </div>
+
+            <div class="race-section">
+                <h3>Other Races</h3>
+                <div id="other-races"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initial state
+        const state = {
+            demSeats: 31,
+            repSeats: 34,
+            uncalledSeats: 35
+        };
+
+        // Race data
+        const keyRaces = ['Alaska', 'Georgia', 'Iowa', 'Maine', 'Michigan', 'Nebraska', 'New Hampshire', 'North Carolina', 'Ohio', 'Virginia'];
+
+        const allRaces = [
+            'Alabama', 'Alaska', 'Arkansas', 'Colorado', 'Delaware', 'Florida', 'Georgia', 'Idaho',
+            'Illinois', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Massachusetts', 'Michigan',
+            'Minnesota', 'Mississippi', 'Montana', 'Nebraska', 'New Hampshire', 'New Jersey', 'New Mexico',
+            'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Rhode Island', 'South Carolina', 'South Dakota',
+            'Tennessee', 'Texas', 'Virginia', 'West Virginia', 'Wyoming'
+        ];
+
+        const otherRaces = allRaces.filter(race => !keyRaces.includes(race));
+
+        // Track race calls
+        const raceCalls = {};
+        allRaces.forEach(race => raceCalls[race] = 'uncalled');
+
+        // Generate senate seats
+        function generateSeats() {
+            const chamber = document.getElementById('senate-chamber');
+            chamber.innerHTML = '';
+
+            const rowSizes = [30, 28, 24, 18]; // Front to back
+            let seatIndex = 0;
+
+            rowSizes.forEach(size => {
+                const row = document.createElement('div');
+                row.className = 'row';
+
+                for (let i = 0; i < size; i++) {
+                    const seat = document.createElement('div');
+                    seat.className = 'seat';
+
+                    // Assign seat type based on counts
+                    if (seatIndex < state.demSeats) {
+                        seat.classList.add('democrat');
+                    } else if (seatIndex < state.demSeats + state.repSeats) {
+                        seat.classList.add('republican');
+                    } else {
+                        seat.classList.add('uncalled');
+                    }
+
+                    row.appendChild(seat);
+                    seatIndex++;
+                }
+
+                chamber.appendChild(row);
+            });
+        }
+
+        // Update counts
+        function updateCounts() {
+            document.getElementById('dem-total').textContent = state.demSeats;
+            document.getElementById('rep-total').textContent = state.repSeats;
+            document.getElementById('uncalled-total').textContent = state.uncalledSeats;
+        }
+
+        // Call a race
+        function callRace(raceName, party) {
+            const previousCall = raceCalls[raceName];
+
+            // Revert previous call
+            if (previousCall === 'democrat') {
+                state.demSeats--;
+                state.uncalledSeats++;
+            } else if (previousCall === 'republican') {
+                state.repSeats--;
+                state.uncalledSeats++;
+            }
+
+            // Apply new call
+            if (party === 'democrat') {
+                state.demSeats++;
+                state.uncalledSeats--;
+                raceCalls[raceName] = 'democrat';
+            } else if (party === 'republican') {
+                state.repSeats++;
+                state.uncalledSeats--;
+                raceCalls[raceName] = 'republican';
+            } else {
+                raceCalls[raceName] = 'uncalled';
+            }
+
+            updateCounts();
+            generateSeats();
+            renderRaces();
+        }
+
+        // Create race element
+        function createRaceElement(raceName, isKeyRace) {
+            const raceDiv = document.createElement('div');
+            raceDiv.className = 'race';
+            if (isKeyRace) raceDiv.classList.add('key-race');
+
+            const call = raceCalls[raceName];
+            if (call === 'democrat') raceDiv.classList.add('called-dem');
+            if (call === 'republican') raceDiv.classList.add('called-rep');
+
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'race-name';
+            nameSpan.textContent = raceName;
+
+            const buttonsDiv = document.createElement('div');
+            buttonsDiv.className = 'race-buttons';
+
+            const demBtn = document.createElement('button');
+            demBtn.className = 'call-btn dem';
+            demBtn.textContent = 'D';
+            demBtn.onclick = () => callRace(raceName, 'democrat');
+
+            const repBtn = document.createElement('button');
+            repBtn.className = 'call-btn rep';
+            repBtn.textContent = 'R';
+            repBtn.onclick = () => callRace(raceName, 'republican');
+
+            const uncallBtn = document.createElement('button');
+            uncallBtn.className = 'call-btn uncall';
+            uncallBtn.textContent = 'Clear';
+            uncallBtn.onclick = () => callRace(raceName, 'uncalled');
+
+            buttonsDiv.appendChild(demBtn);
+            buttonsDiv.appendChild(repBtn);
+            buttonsDiv.appendChild(uncallBtn);
+
+            raceDiv.appendChild(nameSpan);
+            raceDiv.appendChild(buttonsDiv);
+
+            return raceDiv;
+        }
+
+        // Render races
+        function renderRaces() {
+            const keyRacesContainer = document.getElementById('key-races');
+            const otherRacesContainer = document.getElementById('other-races');
+
+            keyRacesContainer.innerHTML = '';
+            otherRacesContainer.innerHTML = '';
+
+            keyRaces.forEach(race => {
+                keyRacesContainer.appendChild(createRaceElement(race, true));
+            });
+
+            otherRaces.forEach(race => {
+                otherRacesContainer.appendChild(createRaceElement(race, false));
+            });
+        }
+
+        // Initialize
+        generateSeats();
+        renderRaces();
+    </script>
+</body>
+</html>
