@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Montana Senate Race - 2026 Projection</title>
+    <link rel="stylesheet" href="race-styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Montana Senate Race - 2026</h1>
+            <a href="../index.html" class="back-link">← Back to Map</a>
+        </div>
+
+        <div class="content-grid">
+            <div class="projection-panel">
+                <div class="projection-result tossup" id="projection-result">
+                    <h2 id="projection-text">Too Close To Call</h2>
+                    <p class="projection-confidence" id="projection-confidence">Enter vote data to see projection</p>
+                </div>
+
+                <div class="vote-totals">
+                    <div class="vote-total dem">
+                        <div class="label">Democrat Votes</div>
+                        <div class="number" id="dem-votes">0</div>
+                    </div>
+                    <div class="vote-total rep">
+                        <div class="label">Republican Votes</div>
+                        <div class="number" id="rep-votes">0</div>
+                    </div>
+                </div>
+
+                <div class="vote-bar">
+                    <div class="dem-bar" id="dem-bar" style="width: 50%;">50%</div>
+                    <div class="rep-bar" id="rep-bar" style="width: 50%;">50%</div>
+                </div>
+
+                <div class="projection-details">
+                    <h3>Projection Details</h3>
+                    <div class="detail-row">
+                        <span class="detail-label">Total Votes Reported:</span>
+                        <span class="detail-value" id="total-votes">0</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Counties Reporting:</span>
+                        <span class="detail-value" id="counties-reporting">0 / 56</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Vote Margin:</span>
+                        <span class="detail-value" id="vote-margin">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Percentage Margin:</span>
+                        <span class="detail-value" id="pct-margin">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="county-input-section">
+                <h2>County Vote Totals</h2>
+                <div id="county-list"></div>
+                <div class="controls">
+                    <button class="btn btn-calculate" onclick="projection.calculateAdvancedProjection()">Calculate Projection</button>
+                    <button class="btn btn-reset" onclick="projection.resetVotes()">Reset All</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="projection-engine.js"></script>
+    <script>
+        // Montana major counties
+        const counties = [
+            'Yellowstone', 'Missoula', 'Gallatin', 'Flathead', 'Cascade', 'Lewis and Clark',
+            'Silver Bow', 'Ravalli', 'Lake', 'Deer Lodge', 'Park', 'Glacier', 'Hill',
+            'Roosevelt', 'Big Horn', 'Custer', 'Fergus', 'Dawson', 'Richland', 'Toole',
+            'Lincoln', 'Powell', 'Pondera', 'Blaine', 'Carbon', 'Valley', 'Sanders',
+            'Teton', 'Stillwater', 'Madison', 'Beaverhead', 'Rosebud', 'Phillips', 'Musselshell',
+            'Sweet Grass', 'Wheatland', 'Powder River', 'Carter', 'Granite', 'Jefferson',
+            'Broadwater', 'Meagher', 'Liberty', 'Treasure', 'Judith Basin', 'McCone',
+            'Daniels', 'Fallon', 'Garfield', 'Golden Valley', 'Petroleum', 'Prairie',
+            'Sheridan', 'Wibaux'
+        ];
+
+        // Historical data (Red state, but competitive)
+        const historicalData = {
+            'Yellowstone': { demShare: 0.42, turnout: 92000 },
+            'Missoula': { demShare: 0.60, turnout: 75000 },
+            'Gallatin': { demShare: 0.52, turnout: 75000 },
+            'Flathead': { demShare: 0.38, turnout: 62000 },
+            'Cascade': { demShare: 0.44, turnout: 48000 },
+            'Lewis and Clark': { demShare: 0.50, turnout: 45000 },
+            'Silver Bow': { demShare: 0.60, turnout: 22000 },
+            'Ravalli': { demShare: 0.35, turnout: 28000 },
+            'Lake': { demShare: 0.45, turnout: 18000 },
+            'Deer Lodge': { demShare: 0.55, turnout: 6000 },
+            'Park': { demShare: 0.40, turnout: 12000 },
+            'Glacier': { demShare: 0.48, turnout: 8000 },
+            'Hill': { demShare: 0.42, turnout: 10000 },
+            'Big Horn': { demShare: 0.52, turnout: 8000 }
+        };
+
+        // Fill in missing counties with Republican-leaning baseline
+        counties.forEach(county => {
+            if (!historicalData[county]) {
+                historicalData[county] = { demShare: 0.38, turnout: 6000 };
+            }
+        });
+
+        // Initialize projection system
+        const projection = new RaceProjection('Montana', counties, historicalData);
+        projection.initialize();
+    </script>
+</body>
+</html>

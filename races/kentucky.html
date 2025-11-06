@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kentucky Senate Race - 2026 Projection</title>
+    <link rel="stylesheet" href="race-styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Kentucky Senate Race - 2026</h1>
+            <a href="../index.html" class="back-link">← Back to Map</a>
+        </div>
+
+        <div class="content-grid">
+            <div class="projection-panel">
+                <div class="projection-result tossup" id="projection-result">
+                    <h2 id="projection-text">Too Close To Call</h2>
+                    <p class="projection-confidence" id="projection-confidence">Enter vote data to see projection</p>
+                </div>
+
+                <div class="vote-totals">
+                    <div class="vote-total dem">
+                        <div class="label">Democrat Votes</div>
+                        <div class="number" id="dem-votes">0</div>
+                    </div>
+                    <div class="vote-total rep">
+                        <div class="label">Republican Votes</div>
+                        <div class="number" id="rep-votes">0</div>
+                    </div>
+                </div>
+
+                <div class="vote-bar">
+                    <div class="dem-bar" id="dem-bar" style="width: 50%;">50%</div>
+                    <div class="rep-bar" id="rep-bar" style="width: 50%;">50%</div>
+                </div>
+
+                <div class="projection-details">
+                    <h3>Projection Details</h3>
+                    <div class="detail-row">
+                        <span class="detail-label">Total Votes Reported:</span>
+                        <span class="detail-value" id="total-votes">0</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Counties Reporting:</span>
+                        <span class="detail-value" id="counties-reporting">0 / 120</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Vote Margin:</span>
+                        <span class="detail-value" id="vote-margin">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Percentage Margin:</span>
+                        <span class="detail-value" id="pct-margin">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="county-input-section">
+                <h2>County Vote Totals</h2>
+                <div id="county-list"></div>
+                <div class="controls">
+                    <button class="btn btn-calculate" onclick="projection.calculateAdvancedProjection()">Calculate Projection</button>
+                    <button class="btn btn-reset" onclick="projection.resetVotes()">Reset All</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="projection-engine.js"></script>
+    <script>
+        // Kentucky major counties
+        const counties = [
+            'Jefferson', 'Fayette', 'Kenton', 'Boone', 'Warren', 'Hardin', 'Daviess', 'Campbell',
+            'Madison', 'McCracken', 'Bullitt', 'Pike', 'Laurel', 'Christian', 'Oldham', 'Pulaski',
+            'Jessamine', 'Boyd', 'Henderson', 'Franklin', 'Graves', 'Muhlenberg', 'Barren', 'Nelson',
+            'Hopkins', 'Scott', 'Calloway', 'Whitley', 'Shelby', 'Greenup', 'Logan', 'Bell',
+            'Marshall', 'Knox', 'Grayson', 'Montgomery', 'Floyd', 'Boyle', 'Rowan', 'Clark',
+            'Woodford', 'Meade', 'Rockcastle', 'Johnson', 'McLean', 'Carter', 'Simpson', 'Adair',
+            'Harlan', 'Todd', 'Anderson', 'Wayne', 'Perry', 'Union', 'Breathitt', 'Clay',
+            'Mercer', 'Russell', 'Taylor', 'Allen', 'McCreary', 'Washington', 'Letcher', 'Lawrence',
+            'Trigg', 'Bath', 'Jackson', 'Webster', 'Fleming', 'Marion'
+        ];
+
+        // Historical data (Red state)
+        const historicalData = {
+            'Jefferson': { demShare: 0.58, turnout: 450000 },
+            'Fayette': { demShare: 0.54, turnout: 185000 },
+            'Kenton': { demShare: 0.42, turnout: 95000 },
+            'Boone': { demShare: 0.38, turnout: 85000 },
+            'Warren': { demShare: 0.48, turnout: 75000 },
+            'Hardin': { demShare: 0.40, turnout: 62000 },
+            'Daviess': { demShare: 0.42, turnout: 58000 },
+            'Campbell': { demShare: 0.45, turnout: 52000 },
+            'Madison': { demShare: 0.42, turnout: 52000 },
+            'McCracken': { demShare: 0.42, turnout: 40000 },
+            'Bullitt': { demShare: 0.35, turnout: 48000 },
+            'Pike': { demShare: 0.32, turnout: 35000 },
+            'Laurel': { demShare: 0.28, turnout: 35000 },
+            'Christian': { demShare: 0.38, turnout: 42000 },
+            'Oldham': { demShare: 0.42, turnout: 45000 },
+            'Franklin': { demShare: 0.50, turnout: 32000 }
+        };
+
+        // Fill in missing counties with Republican-leaning baseline
+        counties.forEach(county => {
+            if (!historicalData[county]) {
+                historicalData[county] = { demShare: 0.35, turnout: 18000 };
+            }
+        });
+
+        // Initialize projection system
+        const projection = new RaceProjection('Kentucky', counties, historicalData);
+        projection.initialize();
+    </script>
+</body>
+</html>

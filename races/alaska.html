@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alaska Senate Race - 2026 Projection</title>
+    <link rel="stylesheet" href="race-styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Alaska Senate Race - 2026</h1>
+            <a href="../index.html" class="back-link">← Back to Map</a>
+        </div>
+
+        <div class="content-grid">
+            <div class="projection-panel">
+                <div class="projection-result tossup" id="projection-result">
+                    <h2 id="projection-text">Too Close To Call</h2>
+                    <p class="projection-confidence" id="projection-confidence">Enter vote data to see projection</p>
+                </div>
+
+                <div class="vote-totals">
+                    <div class="vote-total dem">
+                        <div class="label">Democrat Votes</div>
+                        <div class="number" id="dem-votes">0</div>
+                    </div>
+                    <div class="vote-total rep">
+                        <div class="label">Republican Votes</div>
+                        <div class="number" id="rep-votes">0</div>
+                    </div>
+                </div>
+
+                <div class="vote-bar">
+                    <div class="dem-bar" id="dem-bar" style="width: 50%;">50%</div>
+                    <div class="rep-bar" id="rep-bar" style="width: 50%;">50%</div>
+                </div>
+
+                <div class="projection-details">
+                    <h3>Projection Details</h3>
+                    <div class="detail-row">
+                        <span class="detail-label">Total Votes Reported:</span>
+                        <span class="detail-value" id="total-votes">0</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Boroughs Reporting:</span>
+                        <span class="detail-value" id="counties-reporting">0 / 29</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Vote Margin:</span>
+                        <span class="detail-value" id="vote-margin">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Percentage Margin:</span>
+                        <span class="detail-value" id="pct-margin">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="county-input-section">
+                <h2>Borough Vote Totals</h2>
+                <div id="county-list"></div>
+                <div class="controls">
+                    <button class="btn btn-calculate" onclick="projection.calculateAdvancedProjection()">Calculate Projection</button>
+                    <button class="btn btn-reset" onclick="projection.resetVotes()">Reset All</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="projection-engine.js"></script>
+    <script>
+        // Alaska boroughs and census areas (major areas)
+        const counties = [
+            'Anchorage', 'Matanuska-Susitna', 'Fairbanks North Star', 'Kenai Peninsula',
+            'Juneau', 'Ketchikan Gateway', 'Bethel', 'Kodiak Island', 'Nome', 'North Slope',
+            'Northwest Arctic', 'Southeast Fairbanks', 'Valdez-Cordova', 'Aleutians East',
+            'Bristol Bay', 'Aleutians West', 'Denali', 'Dillingham', 'Haines', 'Hoonah-Angoon',
+            'Lake and Peninsula', 'Petersburg', 'Prince of Wales-Hyder', 'Sitka', 'Skagway',
+            'Wade Hampton', 'Wrangell', 'Yakutat', 'Yukon-Koyukuk'
+        ];
+
+        // Historical data (2022 Senate race - Murkowski baseline)
+        // Note: Alaska uses ranked-choice voting
+        const historicalData = {
+            'Anchorage': { demShare: 0.42, turnout: 145000 },
+            'Matanuska-Susitna': { demShare: 0.32, turnout: 50000 },
+            'Fairbanks North Star': { demShare: 0.38, turnout: 42000 },
+            'Kenai Peninsula': { demShare: 0.35, turnout: 32000 },
+            'Juneau': { demShare: 0.52, turnout: 18000 },
+            'Ketchikan Gateway': { demShare: 0.43, turnout: 8000 },
+            'Bethel': { demShare: 0.48, turnout: 5500 },
+            'Kodiak Island': { demShare: 0.38, turnout: 6500 },
+            'Nome': { demShare: 0.45, turnout: 4000 },
+            'North Slope': { demShare: 0.50, turnout: 3000 },
+            'Northwest Arctic': { demShare: 0.48, turnout: 3500 },
+            'Southeast Fairbanks': { demShare: 0.35, turnout: 3800 },
+        };
+
+        // Fill in missing boroughs with Republican-leaning baseline
+        counties.forEach(county => {
+            if (!historicalData[county]) {
+                historicalData[county] = { demShare: 0.38, turnout: 2500 };
+            }
+        });
+
+        // Initialize projection system
+        const projection = new RaceProjection('Alaska', counties, historicalData);
+        projection.initialize();
+    </script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Texas Senate Race - 2026 Projection</title>
+    <link rel="stylesheet" href="race-styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Texas Senate Race - 2026</h1>
+            <a href="../index.html" class="back-link">← Back to Map</a>
+        </div>
+
+        <div class="content-grid">
+            <div class="projection-panel">
+                <div class="projection-result tossup" id="projection-result">
+                    <h2 id="projection-text">Too Close To Call</h2>
+                    <p class="projection-confidence" id="projection-confidence">Enter vote data to see projection</p>
+                </div>
+
+                <div class="vote-totals">
+                    <div class="vote-total dem">
+                        <div class="label">Democrat Votes</div>
+                        <div class="number" id="dem-votes">0</div>
+                    </div>
+                    <div class="vote-total rep">
+                        <div class="label">Republican Votes</div>
+                        <div class="number" id="rep-votes">0</div>
+                    </div>
+                </div>
+
+                <div class="vote-bar">
+                    <div class="dem-bar" id="dem-bar" style="width: 50%;">50%</div>
+                    <div class="rep-bar" id="rep-bar" style="width: 50%;">50%</div>
+                </div>
+
+                <div class="projection-details">
+                    <h3>Projection Details</h3>
+                    <div class="detail-row">
+                        <span class="detail-label">Total Votes Reported:</span>
+                        <span class="detail-value" id="total-votes">0</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Counties Reporting:</span>
+                        <span class="detail-value" id="counties-reporting">0 / 45</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Vote Margin:</span>
+                        <span class="detail-value" id="vote-margin">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Percentage Margin:</span>
+                        <span class="detail-value" id="pct-margin">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="county-input-section">
+                <h2>Major County Vote Totals</h2>
+                <div id="county-list"></div>
+                <div class="controls">
+                    <button class="btn btn-calculate" onclick="projection.calculateAdvancedProjection()">Calculate Projection</button>
+                    <button class="btn btn-reset" onclick="projection.resetVotes()">Reset All</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="projection-engine.js"></script>
+    <script>
+        // Texas major counties (45 largest)
+        const counties = [
+            'Harris', 'Dallas', 'Tarrant', 'Bexar', 'Travis', 'Collin', 'Denton', 'El Paso',
+            'Fort Bend', 'Hidalgo', 'Montgomery', 'Williamson', 'Cameron', 'Nueces', 'Brazoria',
+            'Bell', 'Galveston', 'Lubbock', 'Webb', 'Jefferson', 'McLennan', 'Smith', 'Ellis',
+            'Johnson', 'Brazos', 'Hays', 'Midland', 'Ector', 'Comal', 'Guadalupe', 'Kaufman',
+            'Wichita', 'Rockwall', 'Gregg', 'Tom Green', 'Taylor', 'Randall', 'Potter', 'Hunt',
+            'Victoria', 'Angelina', 'Grayson', 'San Patricio', 'Liberty', 'Bastrop'
+        ];
+
+        // Historical data (Red state but competitive in urban areas)
+        const historicalData = {
+            'Harris': { demShare: 0.56, turnout: 2400000 },
+            'Dallas': { demShare: 0.60, turnout: 1450000 },
+            'Tarrant': { demShare: 0.49, turnout: 1150000 },
+            'Bexar': { demShare: 0.58, turnout: 1050000 },
+            'Travis': { demShare: 0.72, turnout: 720000 },
+            'Collin': { demShare: 0.48, turnout: 650000 },
+            'Denton': { demShare: 0.52, turnout: 550000 },
+            'El Paso': { demShare: 0.66, turnout: 420000 },
+            'Fort Bend': { demShare: 0.58, turnout: 480000 },
+            'Hidalgo': { demShare: 0.60, turnout: 450000 },
+            'Montgomery': { demShare: 0.28, turnout: 380000 },
+            'Williamson': { demShare: 0.52, turnout: 350000 },
+            'Cameron': { demShare: 0.58, turnout: 220000 },
+            'Nueces': { demShare: 0.56, turnout: 185000 },
+            'Brazoria': { demShare: 0.45, turnout: 220000 },
+            'Bell': { demShare: 0.45, turnout: 185000 },
+            'Galveston': { demShare: 0.48, turnout: 195000 },
+            'Lubbock': { demShare: 0.38, turnout: 165000 },
+            'Webb': { demShare: 0.62, turnout: 145000 },
+            'Jefferson': { demShare: 0.52, turnout: 150000 },
+            'McLennan': { demShare: 0.42, turnout: 145000 },
+            'Smith': { demShare: 0.35, turnout: 135000 },
+            'Ellis': { demShare: 0.38, turnout: 115000 },
+            'Johnson': { demShare: 0.35, turnout: 105000 },
+            'Brazos': { demShare: 0.42, turnout: 115000 },
+            'Hays': { demShare: 0.60, turnout: 135000 },
+            'Midland': { demShare: 0.35, turnout: 95000 },
+            'Ector': { demShare: 0.38, turnout: 82000 },
+            'Comal': { demShare: 0.38, turnout: 95000 },
+            'Guadalupe': { demShare: 0.42, turnout: 92000 },
+            'Kaufman': { demShare: 0.38, turnout: 82000 },
+            'Wichita': { demShare: 0.40, turnout: 75000 },
+            'Rockwall': { demShare: 0.40, turnout: 68000 },
+            'Gregg': { demShare: 0.38, turnout: 72000 },
+            'Tom Green': { demShare: 0.38, turnout: 68000 },
+            'Taylor': { demShare: 0.35, turnout: 78000 },
+            'Randall': { demShare: 0.28, turnout: 82000 },
+            'Potter': { demShare: 0.45, turnout: 62000 }
+        };
+
+        // Fill in missing counties with Republican-leaning baseline
+        counties.forEach(county => {
+            if (!historicalData[county]) {
+                historicalData[county] = { demShare: 0.40, turnout: 65000 };
+            }
+        });
+
+        // Initialize projection system
+        const projection = new RaceProjection('Texas', counties, historicalData);
+        projection.initialize();
+    </script>
+</body>
+</html>
