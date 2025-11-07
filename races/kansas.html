@@ -10,7 +10,7 @@
     <div class="container">
         <div class="header">
             <h1>Kansas Senate Race - 2026</h1>
-            <div class="version-badge">v1.3</div>
+            <div class="version-badge">v1.4</div>
             <a href="../index.html" class="back-link">← Back to Map</a>
         </div>
 
@@ -69,7 +69,7 @@
         </div>
     </div>
 
-    <script src="projection-engine.js?v=3"></script>
+    <script src="projection-engine.js?v=4"></script>
     <script>
         // Kansas major counties
         const counties = [
@@ -87,27 +87,27 @@
 
         // Historical data (Red state)
         const historicalData = {
-            'Johnson': { demShare: 0.52, turnout: 380000 },
-            'Sedgwick': { demShare: 0.44, turnout: 285000 },
-            'Shawnee': { demShare: 0.48, turnout: 105000 },
-            'Wyandotte': { demShare: 0.65, turnout: 88000 },
-            'Douglas': { demShare: 0.64, turnout: 72000 },
-            'Leavenworth': { demShare: 0.48, turnout: 48000 },
-            'Riley': { demShare: 0.42, turnout: 42000 },
-            'Saline': { demShare: 0.40, turnout: 33000 },
-            'Butler': { demShare: 0.32, turnout: 42000 },
-            'Reno': { demShare: 0.38, turnout: 38000 },
-            'Crawford': { demShare: 0.42, turnout: 24000 },
-            'Finney': { demShare: 0.38, turnout: 20000 },
-            'Harvey': { demShare: 0.36, turnout: 20000 },
-            'Ellis': { demShare: 0.40, turnout: 18000 },
-            'Geary': { demShare: 0.46, turnout: 16000 }
+            'Johnson': { demShare: 0.52, turnout: 342000 },
+            'Sedgwick': { demShare: 0.44, turnout: 256000 },
+            'Shawnee': { demShare: 0.48, turnout: 95000 },
+            'Wyandotte': { demShare: 0.65, turnout: 79000 },
+            'Douglas': { demShare: 0.64, turnout: 65000 },
+            'Leavenworth': { demShare: 0.48, turnout: 43000 },
+            'Riley': { demShare: 0.42, turnout: 38000 },
+            'Saline': { demShare: 0.40, turnout: 30000 },
+            'Butler': { demShare: 0.32, turnout: 38000 },
+            'Reno': { demShare: 0.38, turnout: 34000 },
+            'Crawford': { demShare: 0.42, turnout: 22000 },
+            'Finney': { demShare: 0.38, turnout: 18000 },
+            'Harvey': { demShare: 0.36, turnout: 18000 },
+            'Ellis': { demShare: 0.40, turnout: 16000 },
+            'Geary': { demShare: 0.46, turnout: 14500 }
         };
 
         // Fill in missing counties with Republican-leaning baseline
         counties.forEach(county => {
             if (!historicalData[county]) {
-                historicalData[county] = { demShare: 0.32, turnout: 12000 };
+                historicalData[county] = { demShare: 0.32, turnout: 10800 };
             }
         });
 

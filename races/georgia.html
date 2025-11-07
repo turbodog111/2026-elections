@@ -319,7 +319,7 @@
     <div class="container">
         <div class="header">
             <h1>Georgia Senate Race - 2026</h1>
-            <div class="version-badge">v1.3</div>
+            <div class="version-badge">v1.4</div>
             <a href="../index.html" class="back-link">← Back to Map</a>
         </div>
 
@@ -393,20 +393,20 @@
         // Historical data (2022 Senate runoff as baseline - Warnock vs Walker)
         // This is simplified - in reality you'd have more detailed historical data
         const historicalData = {
-            'Fulton': { demShare: 0.72, turnout: 445000 },
-            'DeKalb': { demShare: 0.83, turnout: 375000 },
-            'Gwinnett': { demShare: 0.60, turnout: 410000 },
-            'Cobb': { demShare: 0.57, turnout: 360000 },
-            'Clayton': { demShare: 0.85, turnout: 125000 },
-            'Cherokee': { demShare: 0.32, turnout: 130000 },
-            'Forsyth': { demShare: 0.31, turnout: 125000 },
+            'Fulton': { demShare: 0.72, turnout: 420000 },
+            'DeKalb': { demShare: 0.83, turnout: 353000 },
+            'Gwinnett': { demShare: 0.60, turnout: 386000 },
+            'Cobb': { demShare: 0.57, turnout: 339000 },
+            'Clayton': { demShare: 0.85, turnout: 118000 },
+            'Cherokee': { demShare: 0.32, turnout: 122000 },
+            'Forsyth': { demShare: 0.31, turnout: 118000 },
             // Add more counties with default values
         };
 
         // Fill in missing counties with neutral baseline
         counties.forEach(county => {
             if (!historicalData[county]) {
-                historicalData[county] = { demShare: 0.50, turnout: 50000 };
+                historicalData[county] = { demShare: 0.50, turnout: 47000 };
             }
         });
 

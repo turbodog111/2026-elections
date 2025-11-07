@@ -10,7 +10,7 @@
     <div class="container">
         <div class="header">
             <h1>Iowa Senate Race - 2026</h1>
-            <div class="version-badge">v1.3</div>
+            <div class="version-badge">v1.4</div>
             <a href="../index.html" class="back-link">← Back to Map</a>
         </div>
 
@@ -69,7 +69,7 @@
         </div>
     </div>
 
-    <script src="projection-engine.js?v=3"></script>
+    <script src="projection-engine.js?v=4"></script>
     <script>
         // Iowa major counties
         const counties = [
@@ -81,28 +81,28 @@
 
         // Historical data (2022 Senate race - Grassley vs Franken baseline)
         const historicalData = {
-            'Polk': { demShare: 0.54, turnout: 250000 },
-            'Linn': { demShare: 0.53, turnout: 130000 },
-            'Scott': { demShare: 0.51, turnout: 95000 },
-            'Johnson': { demShare: 0.68, turnout: 90000 },
-            'Black Hawk': { demShare: 0.52, turnout: 70000 },
-            'Woodbury': { demShare: 0.42, turnout: 55000 },
-            'Dubuque': { demShare: 0.54, turnout: 58000 },
-            'Story': { demShare: 0.56, turnout: 60000 },
-            'Pottawattamie': { demShare: 0.40, turnout: 50000 },
-            'Dallas': { demShare: 0.47, turnout: 55000 },
-            'Warren': { demShare: 0.45, turnout: 32000 },
-            'Wapello': { demShare: 0.50, turnout: 20000 },
-            'Muscatine': { demShare: 0.48, turnout: 23000 },
-            'Clinton': { demShare: 0.49, turnout: 27000 },
-            'Cerro Gordo': { demShare: 0.48, turnout: 28000 },
-            'Marshall': { demShare: 0.43, turnout: 22000 },
+            'Polk': { demShare: 0.54, turnout: 235000 },
+            'Linn': { demShare: 0.53, turnout: 122000 },
+            'Scott': { demShare: 0.51, turnout: 89000 },
+            'Johnson': { demShare: 0.68, turnout: 84000 },
+            'Black Hawk': { demShare: 0.52, turnout: 66000 },
+            'Woodbury': { demShare: 0.42, turnout: 52000 },
+            'Dubuque': { demShare: 0.54, turnout: 54000 },
+            'Story': { demShare: 0.56, turnout: 56000 },
+            'Pottawattamie': { demShare: 0.40, turnout: 47000 },
+            'Dallas': { demShare: 0.47, turnout: 52000 },
+            'Warren': { demShare: 0.45, turnout: 30000 },
+            'Wapello': { demShare: 0.50, turnout: 19000 },
+            'Muscatine': { demShare: 0.48, turnout: 22000 },
+            'Clinton': { demShare: 0.49, turnout: 25000 },
+            'Cerro Gordo': { demShare: 0.48, turnout: 26000 },
+            'Marshall': { demShare: 0.43, turnout: 21000 },
         };
 
         // Fill in missing counties with Republican-leaning baseline
         counties.forEach(county => {
             if (!historicalData[county]) {
-                historicalData[county] = { demShare: 0.40, turnout: 18000 };
+                historicalData[county] = { demShare: 0.40, turnout: 17000 };
             }
         });
 
