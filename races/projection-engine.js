@@ -146,18 +146,32 @@ class RaceProjection {
         const overperformanceScore = expectedDemOverperformance - expectedRepOverperformance;
         const reportingPercentage = reportedCounties / this.counties.length;
 
-        // Adjust confidence based on % reporting
-        let confidenceMultiplier = 1.0;
-        if (reportingPercentage < 0.20) {
-            confidenceMultiplier = 0.3; // Low confidence with < 20% reporting
-        } else if (reportingPercentage < 0.50) {
-            confidenceMultiplier = 0.6; // Medium confidence with < 50% reporting
-        } else if (reportingPercentage < 0.75) {
-            confidenceMultiplier = 0.8; // Good confidence with < 75% reporting
+        // Calculate certainty percentage
+        // Base certainty on margin, reporting percentage, and consistency
+        let baseCertainty = 0;
+
+        // Margin contribution (0-60%)
+        const marginComponent = Math.min(currentMargin * 300, 0.60); // 20% margin = 60% certainty
+
+        // Reporting contribution (0-30%)
+        const reportingComponent = reportingPercentage * 0.30;
+
+        // Historical consistency contribution (0-10%)
+        const consistencyComponent = Math.min(Math.abs(overperformanceScore) / 100000, 0.10);
+
+        baseCertainty = marginComponent + reportingComponent + consistencyComponent;
+
+        // Convert to percentage
+        let certaintyPct = baseCertainty * 100;
+
+        // Cap at 99.9% unless we have overwhelming evidence
+        if (certaintyPct > 99.9) certaintyPct = 99.9;
+        if (reportingPercentage > 0.95 && currentMargin > 0.15) {
+            certaintyPct = 99.9; // Call race with 95%+ reporting and 15%+ margin
         }
 
-        // Calculate final projection
-        const adjustedMargin = currentMargin * confidenceMultiplier;
+        // Determine if race can be called (>99% certainty)
+        const raceCalled = certaintyPct > 99.0;
 
         const resultDiv = document.getElementById('projection-result');
         const resultText = document.getElementById('projection-text');
@@ -165,46 +179,57 @@ class RaceProjection {
 
         // Determine winner
         const demLeading = demPct > 0.5;
+        const leadingParty = demLeading ? 'Democrat' : 'Republican';
 
-        // Determine projection strength
-        if (adjustedMargin < 0.015 || reportingPercentage < 0.15) {
-            resultDiv.className = 'projection-result tossup';
-            resultText.textContent = 'Too Close To Call';
-            if (reportingPercentage < 0.15) {
-                confidenceText.textContent = 'Not enough data for reliable projection';
-            } else {
-                confidenceText.textContent = 'Race is within margin of error';
-            }
-        } else if (demLeading) {
-            resultDiv.className = 'projection-result dem';
-            if (adjustedMargin > 0.08) {
-                resultText.textContent = 'Likely Democrat';
-                confidenceText.textContent = `Strong Democratic lead (${(reportingPercentage * 100).toFixed(0)}% reporting)`;
-            } else if (adjustedMargin > 0.04) {
-                resultText.textContent = 'Lean Democrat';
-                confidenceText.textContent = `Moderate Democratic lead (${(reportingPercentage * 100).toFixed(0)}% reporting)`;
-            } else {
-                resultText.textContent = 'Tilt Democrat';
-                confidenceText.textContent = `Slight Democratic lead (${(reportingPercentage * 100).toFixed(0)}% reporting)`;
-            }
+        // Display certainty percentage
+        if (raceCalled) {
+            // RACE CALLED
+            resultDiv.className = demLeading ? 'projection-result dem called' : 'projection-result rep called';
+            resultText.innerHTML = `<div style="font-size: 0.6em; margin-bottom: 5px;">🏁 RACE CALLED 🏁</div>${leadingParty} Wins`;
+            confidenceText.textContent = `Certainty: ${certaintyPct.toFixed(1)}% • ${(reportingPercentage * 100).toFixed(0)}% reporting`;
         } else {
-            resultDiv.className = 'projection-result rep';
-            if (adjustedMargin > 0.08) {
-                resultText.textContent = 'Likely Republican';
-                confidenceText.textContent = `Strong Republican lead (${(reportingPercentage * 100).toFixed(0)}% reporting)`;
-            } else if (adjustedMargin > 0.04) {
-                resultText.textContent = 'Lean Republican';
-                confidenceText.textContent = `Moderate Republican lead (${(reportingPercentage * 100).toFixed(0)}% reporting)`;
-            } else {
-                resultText.textContent = 'Tilt Republican';
-                confidenceText.textContent = `Slight Republican lead (${(reportingPercentage * 100).toFixed(0)}% reporting)`;
-            }
-        }
+            // Projection only
+            const adjustedMargin = currentMargin * Math.min(reportingPercentage * 2, 1.0);
 
-        // Add historical context to confidence text
-        if (Math.abs(overperformanceScore) > 0) {
-            const overperformingParty = overperformanceScore > 0 ? 'Democrats' : 'Republicans';
-            confidenceText.textContent += ` • ${overperformingParty} outperforming historical benchmarks`;
+            if (adjustedMargin < 0.015 || reportingPercentage < 0.15) {
+                resultDiv.className = 'projection-result tossup';
+                resultText.textContent = 'Too Close To Call';
+                if (reportingPercentage < 0.15) {
+                    confidenceText.textContent = `Not enough data • Certainty: ${certaintyPct.toFixed(1)}%`;
+                } else {
+                    confidenceText.textContent = `Race within margin of error • Certainty: ${certaintyPct.toFixed(1)}%`;
+                }
+            } else if (demLeading) {
+                resultDiv.className = 'projection-result dem';
+                if (adjustedMargin > 0.08) {
+                    resultText.textContent = 'Likely Democrat';
+                    confidenceText.textContent = `Certainty: ${certaintyPct.toFixed(1)}% • ${(reportingPercentage * 100).toFixed(0)}% reporting`;
+                } else if (adjustedMargin > 0.04) {
+                    resultText.textContent = 'Lean Democrat';
+                    confidenceText.textContent = `Certainty: ${certaintyPct.toFixed(1)}% • ${(reportingPercentage * 100).toFixed(0)}% reporting`;
+                } else {
+                    resultText.textContent = 'Tilt Democrat';
+                    confidenceText.textContent = `Certainty: ${certaintyPct.toFixed(1)}% • ${(reportingPercentage * 100).toFixed(0)}% reporting`;
+                }
+            } else {
+                resultDiv.className = 'projection-result rep';
+                if (adjustedMargin > 0.08) {
+                    resultText.textContent = 'Likely Republican';
+                    confidenceText.textContent = `Certainty: ${certaintyPct.toFixed(1)}% • ${(reportingPercentage * 100).toFixed(0)}% reporting`;
+                } else if (adjustedMargin > 0.04) {
+                    resultText.textContent = 'Lean Republican';
+                    confidenceText.textContent = `Certainty: ${certaintyPct.toFixed(1)}% • ${(reportingPercentage * 100).toFixed(0)}% reporting`;
+                } else {
+                    resultText.textContent = 'Tilt Republican';
+                    confidenceText.textContent = `Certainty: ${certaintyPct.toFixed(1)}% • ${(reportingPercentage * 100).toFixed(0)}% reporting`;
+                }
+            }
+
+            // Add historical context
+            if (Math.abs(overperformanceScore) > 0) {
+                const overperformingParty = overperformanceScore > 0 ? 'Democrats' : 'Republicans';
+                confidenceText.textContent += ` • ${overperformingParty} outperforming benchmarks`;
+            }
         }
     }
 
