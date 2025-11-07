@@ -85,16 +85,103 @@ body {
 .projection-result.called {
     border-width: 5px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.2);
-    animation: pulse 2s infinite;
 }
 
-@keyframes pulse {
+/* Checkmark container */
+.checkmark-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+/* Checkmark SVG */
+.checkmark {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: block;
+    stroke-width: 3;
+    stroke: #fff;
+    stroke-miterlimit: 10;
+    box-shadow: inset 0px 0px 0px #22c55e;
+    animation: checkmark-fill 0.4s ease-in-out 0.4s forwards, checkmark-scale 3s 0.9s ease-in-out infinite;
+}
+
+.projection-result.dem.called .checkmark {
+    stroke: #1e40af;
+}
+
+.projection-result.rep.called .checkmark {
+    stroke: #b91c1c;
+}
+
+.checkmark-circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    stroke-width: 3;
+    stroke-miterlimit: 10;
+    fill: none;
+    animation: checkmark-stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.projection-result.dem.called .checkmark-circle {
+    stroke: #1e40af;
+}
+
+.projection-result.rep.called .checkmark-circle {
+    stroke: #b91c1c;
+}
+
+.checkmark-check {
+    transform-origin: 50% 50%;
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    animation: checkmark-stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+.projection-result.dem.called .checkmark-check {
+    stroke: #1e40af;
+}
+
+.projection-result.rep.called .checkmark-check {
+    stroke: #b91c1c;
+}
+
+@keyframes checkmark-stroke {
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes checkmark-scale {
     0%, 100% {
-        transform: scale(1);
+        transform: none;
     }
     50% {
-        transform: scale(1.02);
+        transform: scale3d(1.1, 1.1, 1);
     }
+}
+
+@keyframes checkmark-fill {
+    100% {
+        box-shadow: inset 0px 0px 0px 30px #22c55e;
+    }
+}
+
+/* Call label styling */
+.call-label {
+    font-size: 0.9em;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    color: #374151;
+    text-transform: uppercase;
+}
+
+.party-name {
+    font-size: 2.2em;
+    font-weight: 700;
+    margin-top: 5px;
 }
 
 .projection-result h2 {
