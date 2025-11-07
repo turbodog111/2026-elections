@@ -138,8 +138,17 @@ class RaceProjection {
     updateVoteTotals() {
         let totalDem = 0;
         let totalRep = 0;
-        let countiesReporting = 0;
+        let expectedTotalVotes = 0;
 
+        // Calculate expected total from historical data
+        this.counties.forEach(county => {
+            const historical = this.historicalData[county];
+            if (historical && historical.turnout) {
+                expectedTotalVotes += historical.turnout;
+            }
+        });
+
+        // Calculate actual reported votes
         this.counties.forEach(county => {
             const sanitizedCounty = county.replace(/[\s\.]/g, '-');
             const demInput = document.getElementById(`dem-${sanitizedCounty}`);
@@ -157,28 +166,30 @@ class RaceProjection {
 
             totalDem += demVotes;
             totalRep += repVotes;
-
-            if (demVotes > 0 || repVotes > 0) {
-                countiesReporting++;
-            }
         });
 
+        const totalVotesReported = totalDem + totalRep;
+        const remainingVotes = Math.max(0, expectedTotalVotes - totalVotesReported);
+        const percentReported = expectedTotalVotes > 0 ? (totalVotesReported / expectedTotalVotes * 100).toFixed(1) : 0;
+
+        // Update displays
         document.getElementById('dem-votes').textContent = totalDem.toLocaleString();
         document.getElementById('rep-votes').textContent = totalRep.toLocaleString();
-        document.getElementById('total-votes').textContent = (totalDem + totalRep).toLocaleString();
-        document.getElementById('counties-reporting').textContent = `${countiesReporting} / ${this.counties.length}`;
+        document.getElementById('expected-votes').textContent = expectedTotalVotes.toLocaleString();
+        document.getElementById('total-votes').textContent = totalVotesReported.toLocaleString();
+        document.getElementById('remaining-votes').textContent = remainingVotes.toLocaleString();
+        document.getElementById('percent-reported').textContent = percentReported + '%';
 
-        const totalVotes = totalDem + totalRep;
-        if (totalVotes > 0) {
-            const demPct = (totalDem / totalVotes * 100).toFixed(1);
-            const repPct = (totalRep / totalVotes * 100).toFixed(1);
+        if (totalVotesReported > 0) {
+            const demPct = (totalDem / totalVotesReported * 100).toFixed(1);
+            const repPct = (totalRep / totalVotesReported * 100).toFixed(1);
             document.getElementById('dem-bar').style.width = demPct + '%';
             document.getElementById('dem-bar').textContent = demPct + '%';
             document.getElementById('rep-bar').style.width = repPct + '%';
             document.getElementById('rep-bar').textContent = repPct + '%';
 
             const margin = Math.abs(totalDem - totalRep);
-            const marginPct = (margin / totalVotes * 100).toFixed(2);
+            const marginPct = (margin / totalVotesReported * 100).toFixed(2);
             document.getElementById('vote-margin').textContent = margin.toLocaleString();
             document.getElementById('pct-margin').textContent = marginPct + '%';
         }
@@ -232,9 +243,6 @@ class RaceProjection {
             return;
         }
 
-        // Calculate reporting percentage
-        const reportingPercentage = reportedCounties / this.counties.length;
-
         // Calculate expected total votes and remaining votes
         let expectedTotalVotes = 0;
         let reportedVotes = totalDem + totalRep;
@@ -245,6 +253,9 @@ class RaceProjection {
                 expectedTotalVotes += historical.turnout;
             }
         });
+
+        // Calculate VOTE-BASED reporting percentage (not county-based!)
+        const reportingPercentage = expectedTotalVotes > 0 ? reportedVotes / expectedTotalVotes : 0;
 
         // Estimate remaining votes based on historical data
         const estimatedRemainingVotes = Math.max(0, expectedTotalVotes - reportedVotes) * PROJECTION_CONFIG.HISTORICAL_CONFIDENCE;
@@ -389,10 +400,21 @@ class RaceProjection {
         // Clear localStorage
         this.clearStorage();
 
+        // Calculate expected total for display
+        let expectedTotal = 0;
+        this.counties.forEach(county => {
+            const historical = this.historicalData[county];
+            if (historical && historical.turnout) {
+                expectedTotal += historical.turnout;
+            }
+        });
+
         document.getElementById('dem-votes').textContent = '0';
         document.getElementById('rep-votes').textContent = '0';
         document.getElementById('total-votes').textContent = '0';
-        document.getElementById('counties-reporting').textContent = '0 / ' + this.counties.length;
+        document.getElementById('expected-votes').textContent = expectedTotal.toLocaleString();
+        document.getElementById('remaining-votes').textContent = expectedTotal.toLocaleString();
+        document.getElementById('percent-reported').textContent = '0%';
         document.getElementById('vote-margin').textContent = '-';
         document.getElementById('pct-margin').textContent = '-';
         document.getElementById('dem-bar').style.width = '50%';
