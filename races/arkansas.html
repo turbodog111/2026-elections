@@ -10,7 +10,7 @@
     <div class="container">
         <div class="header">
             <h1>Arkansas Senate Race - 2026</h1>
-            <div class="version-badge">v1.3</div>
+            <div class="version-badge">v1.4</div>
             <a href="../index.html" class="back-link">← Back to Map</a>
         </div>
 
@@ -69,7 +69,7 @@
         </div>
     </div>
 
-    <script src="projection-engine.js?v=3"></script>
+    <script src="projection-engine.js?v=4"></script>
     <script>
         // Arkansas major counties
         const counties = [
@@ -86,29 +86,29 @@
 
         // Historical data (Deep red state)
         const historicalData = {
-            'Pulaski': { demShare: 0.48, turnout: 210000 },
-            'Benton': { demShare: 0.32, turnout: 155000 },
-            'Washington': { demShare: 0.42, turnout: 125000 },
-            'Sebastian': { demShare: 0.38, turnout: 70000 },
-            'Faulkner': { demShare: 0.40, turnout: 72000 },
-            'Craighead': { demShare: 0.38, turnout: 56000 },
-            'Saline': { demShare: 0.32, turnout: 70000 },
-            'Garland': { demShare: 0.41, turnout: 55000 },
-            'Lonoke': { demShare: 0.35, turnout: 42000 },
-            'White': { demShare: 0.28, turnout: 48000 },
-            'Jefferson': { demShare: 0.62, turnout: 38000 },
-            'Crawford': { demShare: 0.30, turnout: 36000 },
-            'Pope': { demShare: 0.30, turnout: 35000 },
-            'Mississippi': { demShare: 0.45, turnout: 25000 },
-            'Crittenden': { demShare: 0.55, turnout: 28000 },
-            'Independence': { demShare: 0.32, turnout: 22000 },
-            'Boone': { demShare: 0.28, turnout: 24000 }
+            'Pulaski': { demShare: 0.48, turnout: 195000 },
+            'Benton': { demShare: 0.32, turnout: 145000 },
+            'Washington': { demShare: 0.42, turnout: 115000 },
+            'Sebastian': { demShare: 0.38, turnout: 65000 },
+            'Faulkner': { demShare: 0.40, turnout: 67000 },
+            'Craighead': { demShare: 0.38, turnout: 52000 },
+            'Saline': { demShare: 0.32, turnout: 65000 },
+            'Garland': { demShare: 0.41, turnout: 51000 },
+            'Lonoke': { demShare: 0.35, turnout: 39000 },
+            'White': { demShare: 0.28, turnout: 45000 },
+            'Jefferson': { demShare: 0.62, turnout: 35000 },
+            'Crawford': { demShare: 0.30, turnout: 33000 },
+            'Pope': { demShare: 0.30, turnout: 32000 },
+            'Mississippi': { demShare: 0.45, turnout: 23000 },
+            'Crittenden': { demShare: 0.55, turnout: 26000 },
+            'Independence': { demShare: 0.32, turnout: 20000 },
+            'Boone': { demShare: 0.28, turnout: 22000 }
         };
 
         // Fill in missing counties with Republican-leaning baseline
         counties.forEach(county => {
             if (!historicalData[county]) {
-                historicalData[county] = { demShare: 0.35, turnout: 18000 };
+                historicalData[county] = { demShare: 0.35, turnout: 16500 };
             }
         });
 

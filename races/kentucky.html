@@ -10,7 +10,7 @@
     <div class="container">
         <div class="header">
             <h1>Kentucky Senate Race - 2026</h1>
-            <div class="version-badge">v1.3</div>
+            <div class="version-badge">v1.4</div>
             <a href="../index.html" class="back-link">← Back to Map</a>
         </div>
 
@@ -69,7 +69,7 @@
         </div>
     </div>
 
-    <script src="projection-engine.js?v=3"></script>
+    <script src="projection-engine.js?v=4"></script>
     <script>
         // Kentucky major counties
         const counties = [
@@ -86,28 +86,28 @@
 
         // Historical data (Red state)
         const historicalData = {
-            'Jefferson': { demShare: 0.58, turnout: 450000 },
-            'Fayette': { demShare: 0.54, turnout: 185000 },
-            'Kenton': { demShare: 0.42, turnout: 95000 },
-            'Boone': { demShare: 0.38, turnout: 85000 },
-            'Warren': { demShare: 0.48, turnout: 75000 },
-            'Hardin': { demShare: 0.40, turnout: 62000 },
-            'Daviess': { demShare: 0.42, turnout: 58000 },
-            'Campbell': { demShare: 0.45, turnout: 52000 },
-            'Madison': { demShare: 0.42, turnout: 52000 },
-            'McCracken': { demShare: 0.42, turnout: 40000 },
-            'Bullitt': { demShare: 0.35, turnout: 48000 },
-            'Pike': { demShare: 0.32, turnout: 35000 },
-            'Laurel': { demShare: 0.28, turnout: 35000 },
-            'Christian': { demShare: 0.38, turnout: 42000 },
-            'Oldham': { demShare: 0.42, turnout: 45000 },
-            'Franklin': { demShare: 0.50, turnout: 32000 }
+            'Jefferson': { demShare: 0.58, turnout: 420000 },
+            'Fayette': { demShare: 0.54, turnout: 173000 },
+            'Kenton': { demShare: 0.42, turnout: 89000 },
+            'Boone': { demShare: 0.38, turnout: 79000 },
+            'Warren': { demShare: 0.48, turnout: 70000 },
+            'Hardin': { demShare: 0.40, turnout: 58000 },
+            'Daviess': { demShare: 0.42, turnout: 54000 },
+            'Campbell': { demShare: 0.45, turnout: 48000 },
+            'Madison': { demShare: 0.42, turnout: 48000 },
+            'McCracken': { demShare: 0.42, turnout: 37000 },
+            'Bullitt': { demShare: 0.35, turnout: 45000 },
+            'Pike': { demShare: 0.32, turnout: 33000 },
+            'Laurel': { demShare: 0.28, turnout: 33000 },
+            'Christian': { demShare: 0.38, turnout: 39000 },
+            'Oldham': { demShare: 0.42, turnout: 42000 },
+            'Franklin': { demShare: 0.50, turnout: 30000 }
         };
 
         // Fill in missing counties with Republican-leaning baseline
         counties.forEach(county => {
             if (!historicalData[county]) {
-                historicalData[county] = { demShare: 0.35, turnout: 18000 };
+                historicalData[county] = { demShare: 0.35, turnout: 16800 };
             }
         });
 

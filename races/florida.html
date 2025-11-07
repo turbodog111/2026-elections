@@ -10,7 +10,7 @@
     <div class="container">
         <div class="header">
             <h1>Florida Senate Race - 2026</h1>
-            <div class="version-badge">v1.3</div>
+            <div class="version-badge">v1.4</div>
             <a href="../index.html" class="back-link">← Back to Map</a>
         </div>
 
@@ -69,7 +69,7 @@
         </div>
     </div>
 
-    <script src="projection-engine.js?v=3"></script>
+    <script src="projection-engine.js?v=4"></script>
     <script>
         // Florida major counties
         const counties = [
@@ -84,38 +84,38 @@
 
         // Historical data (Lean Republican)
         const historicalData = {
-            'Miami-Dade': { demShare: 0.57, turnout: 1450000 },
-            'Broward': { demShare: 0.65, turnout: 1050000 },
-            'Palm Beach': { demShare: 0.56, turnout: 820000 },
-            'Hillsborough': { demShare: 0.52, turnout: 810000 },
-            'Orange': { demShare: 0.57, turnout: 720000 },
-            'Pinellas': { demShare: 0.51, turnout: 580000 },
-            'Duval': { demShare: 0.48, turnout: 540000 },
-            'Lee': { demShare: 0.42, turnout: 420000 },
-            'Polk': { demShare: 0.44, turnout: 370000 },
-            'Brevard': { demShare: 0.45, turnout: 350000 },
-            'Volusia': { demShare: 0.48, turnout: 310000 },
-            'Pasco': { demShare: 0.46, turnout: 300000 },
-            'Seminole': { demShare: 0.49, turnout: 280000 },
-            'Sarasota': { demShare: 0.47, turnout: 270000 },
-            'Manatee': { demShare: 0.45, turnout: 220000 },
-            'Lake': { demShare: 0.42, turnout: 210000 },
-            'Collier': { demShare: 0.38, turnout: 220000 },
-            'Leon': { demShare: 0.62, turnout: 180000 },
-            'Escambia': { demShare: 0.40, turnout: 180000 },
-            'Marion': { demShare: 0.38, turnout: 200000 },
-            'Osceola': { demShare: 0.58, turnout: 190000 },
-            'St. Lucie': { demShare: 0.53, turnout: 170000 },
-            'Clay': { demShare: 0.30, turnout: 135000 },
-            'Charlotte': { demShare: 0.43, turnout: 120000 },
-            'St. Johns': { demShare: 0.37, turnout: 155000 },
-            'Alachua': { demShare: 0.62, turnout: 150000 }
+            'Miami-Dade': { demShare: 0.57, turnout: 1300000 },
+            'Broward': { demShare: 0.65, turnout: 945000 },
+            'Palm Beach': { demShare: 0.56, turnout: 735000 },
+            'Hillsborough': { demShare: 0.52, turnout: 725000 },
+            'Orange': { demShare: 0.57, turnout: 645000 },
+            'Pinellas': { demShare: 0.51, turnout: 520000 },
+            'Duval': { demShare: 0.48, turnout: 485000 },
+            'Lee': { demShare: 0.42, turnout: 375000 },
+            'Polk': { demShare: 0.44, turnout: 330000 },
+            'Brevard': { demShare: 0.45, turnout: 315000 },
+            'Volusia': { demShare: 0.48, turnout: 278000 },
+            'Pasco': { demShare: 0.46, turnout: 270000 },
+            'Seminole': { demShare: 0.49, turnout: 251000 },
+            'Sarasota': { demShare: 0.47, turnout: 242000 },
+            'Manatee': { demShare: 0.45, turnout: 197000 },
+            'Lake': { demShare: 0.42, turnout: 188000 },
+            'Collier': { demShare: 0.38, turnout: 197000 },
+            'Leon': { demShare: 0.62, turnout: 161000 },
+            'Escambia': { demShare: 0.40, turnout: 161000 },
+            'Marion': { demShare: 0.38, turnout: 179000 },
+            'Osceola': { demShare: 0.58, turnout: 170000 },
+            'St. Lucie': { demShare: 0.53, turnout: 152000 },
+            'Clay': { demShare: 0.30, turnout: 121000 },
+            'Charlotte': { demShare: 0.43, turnout: 108000 },
+            'St. Johns': { demShare: 0.37, turnout: 139000 },
+            'Alachua': { demShare: 0.62, turnout: 134000 }
         };
 
         // Fill in missing counties with Republican-leaning baseline
         counties.forEach(county => {
             if (!historicalData[county]) {
-                historicalData[county] = { demShare: 0.42, turnout: 85000 };
+                historicalData[county] = { demShare: 0.42, turnout: 76000 };
             }
         });
 

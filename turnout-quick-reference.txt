@@ -1,0 +1,93 @@
+2026 SENATE ELECTION TURNOUT ESTIMATES - QUICK REFERENCE
+==========================================================
+
+COMPETITIVE RACES (10 states):
+------------------------------
+Alaska:          350,000    (62% VEP - Ranked choice, high engagement, competitive)
+Georgia:       4,200,000    (51% VEP - Battleground, 2022 runoff was 3.56M)
+Iowa:          1,450,000    (58% VEP - High engagement + competitive race)
+Maine:           750,000    (67% VEP - Highest midterm turnout state)
+Michigan:      4,800,000    (60% VEP - Battleground, 2022 midterm 4.5M)
+Nebraska:        850,000    (57% VEP - Independent candidacy boosts turnout)
+New Hampshire:   725,000    (63% VEP - Top-tier turnout state)
+North Carolina: 4,600,000   (56% VEP - Battleground, rapid growth)
+Ohio:          5,200,000    (55% VEP - Competitive, 2022 was 4.4M)
+Virginia:      3,600,000    (54% VEP - Purple state, 2022 was 3.0M)
+
+NON-COMPETITIVE RACES (25 states):
+-----------------------------------
+Alabama:       1,750,000    (45% VEP - Deep red, 2022 was 1.65M)
+Arkansas:        950,000    (40% VEP - Low engagement state)
+Colorado:      2,800,000    (61% VEP - Mail ballot state, high engagement)
+Delaware:        420,000    (53% VEP - Small safe Dem state)
+Florida:       8,200,000    (47% VEP - Large but non-competitive)
+Idaho:           750,000    (52% VEP - Deep red, growing)
+Illinois:      4,600,000    (47% VEP - Safe Dem, 2022 was 4.3M)
+Kansas:        1,150,000    (50% VEP - Safe GOP)
+Kentucky:      1,800,000    (50% VEP - Safe GOP, 2022 was 1.65M)
+Louisiana:     1,650,000    (45% VEP - Safe GOP)
+Massachusetts: 3,200,000    (57% VEP - Safe Dem, high education)
+Minnesota:     2,800,000    (64% VEP - Highest national turnout!)
+Mississippi:     950,000    (40% VEP - Low engagement)
+Montana:         550,000    (61% VEP - High rural engagement)
+New Jersey:    3,500,000    (49% VEP - Safe Dem, 2022 was 3.2M)
+New Mexico:      800,000    (48% VEP - Safe Dem)
+Oklahoma:      1,100,000    (35% VEP - Lowest turnout tier)
+Oregon:        1,950,000    (57% VEP - Mail ballot, high engagement)
+Rhode Island:    450,000    (51% VEP - Small safe Dem)
+South Carolina: 2,000,000   (49% VEP - Safe GOP, growing)
+South Dakota:    390,000    (56% VEP - High rural engagement)
+Tennessee:     2,450,000    (45% VEP - Deep red, 2022 was 2.25M)
+Texas:         8,500,000    (39% VEP - Lowest large-state turnout)
+West Virginia:   650,000    (45% VEP - Deep red, aging population)
+Wyoming:         240,000    (51% VEP - Small deep red state)
+
+TOTAL PROJECTED: ~74.3 million votes across all 35 races
+
+SORTED BY TURNOUT (Largest to Smallest):
+-----------------------------------------
+1.  Texas:          8,500,000
+2.  Florida:        8,200,000
+3.  Ohio:           5,200,000
+4.  Michigan:       4,800,000
+5.  Illinois:       4,600,000
+6.  North Carolina: 4,600,000
+7.  Georgia:        4,200,000
+8.  Virginia:       3,600,000
+9.  New Jersey:     3,500,000
+10. Massachusetts:  3,200,000
+11. Minnesota:      2,800,000
+12. Colorado:       2,800,000
+13. Tennessee:      2,450,000
+14. South Carolina: 2,000,000
+15. Oregon:         1,950,000
+16. Alabama:        1,750,000
+17. Kentucky:       1,800,000
+18. Louisiana:      1,650,000
+19. Iowa:           1,450,000
+20. Kansas:         1,150,000
+21. Oklahoma:       1,100,000
+22. Arkansas:         950,000
+23. Mississippi:      950,000
+24. Nebraska:         850,000
+25. New Mexico:       800,000
+26. Maine:            750,000
+27. Idaho:            750,000
+28. New Hampshire:    725,000
+29. West Virginia:    650,000
+30. Montana:          550,000
+31. Rhode Island:     450,000
+32. Delaware:         420,000
+33. South Dakota:     390,000
+34. Alaska:           350,000
+35. Wyoming:          240,000
+
+KEY INSIGHTS:
+-------------
+• Midterm average: ~48% VEP (vs. 64% in 2024 presidential)
+• Competitive races average: 57.5% VEP
+• Non-competitive average: 48.2% VEP
+• Top turnout: Maine (67%), Minnesota (64%), NH (63%)
+• Lowest: Oklahoma (35%), Texas (39%), Arkansas (40%)
+• 10 competitive races expected to drive higher engagement
+• Total turnout down ~40% from presidential year norms

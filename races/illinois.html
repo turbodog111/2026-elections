@@ -10,7 +10,7 @@
     <div class="container">
         <div class="header">
             <h1>Illinois Senate Race - 2026</h1>
-            <div class="version-badge">v1.3</div>
+            <div class="version-badge">v1.4</div>
             <a href="../index.html" class="back-link">← Back to Map</a>
         </div>
 
@@ -69,7 +69,7 @@
         </div>
     </div>
 
-    <script src="projection-engine.js?v=3"></script>
+    <script src="projection-engine.js?v=4"></script>
     <script>
         // Illinois major counties
         const counties = [
@@ -84,31 +84,31 @@
 
         // Historical data (Blue state - strong Democratic lean from Cook County)
         const historicalData = {
-            'Cook': { demShare: 0.74, turnout: 2800000 },
-            'DuPage': { demShare: 0.58, turnout: 580000 },
-            'Lake': { demShare: 0.60, turnout: 420000 },
-            'Will': { demShare: 0.56, turnout: 410000 },
-            'Kane': { demShare: 0.54, turnout: 310000 },
-            'McHenry': { demShare: 0.42, turnout: 190000 },
-            'Winnebago': { demShare: 0.51, turnout: 165000 },
-            'Madison': { demShare: 0.48, turnout: 155000 },
-            'St. Clair': { demShare: 0.58, turnout: 150000 },
-            'Champaign': { demShare: 0.56, turnout: 120000 },
-            'Sangamon': { demShare: 0.52, turnout: 125000 },
-            'Peoria': { demShare: 0.50, turnout: 110000 },
-            'Tazewell': { demShare: 0.38, turnout: 78000 },
-            'McLean': { demShare: 0.48, turnout: 105000 },
-            'Rock Island': { demShare: 0.55, turnout: 85000 },
-            'Kankakee': { demShare: 0.48, turnout: 65000 },
-            'DeKalb': { demShare: 0.52, turnout: 60000 },
-            'Jackson': { demShare: 0.54, turnout: 35000 },
-            'Kendall': { demShare: 0.50, turnout: 75000 }
+            'Cook': { demShare: 0.74, turnout: 2520000 },
+            'DuPage': { demShare: 0.58, turnout: 522000 },
+            'Lake': { demShare: 0.60, turnout: 378000 },
+            'Will': { demShare: 0.56, turnout: 369000 },
+            'Kane': { demShare: 0.54, turnout: 279000 },
+            'McHenry': { demShare: 0.42, turnout: 171000 },
+            'Winnebago': { demShare: 0.51, turnout: 148000 },
+            'Madison': { demShare: 0.48, turnout: 139000 },
+            'St. Clair': { demShare: 0.58, turnout: 135000 },
+            'Champaign': { demShare: 0.56, turnout: 108000 },
+            'Sangamon': { demShare: 0.52, turnout: 112000 },
+            'Peoria': { demShare: 0.50, turnout: 99000 },
+            'Tazewell': { demShare: 0.38, turnout: 70000 },
+            'McLean': { demShare: 0.48, turnout: 94000 },
+            'Rock Island': { demShare: 0.55, turnout: 76000 },
+            'Kankakee': { demShare: 0.48, turnout: 58000 },
+            'DeKalb': { demShare: 0.52, turnout: 54000 },
+            'Jackson': { demShare: 0.54, turnout: 31000 },
+            'Kendall': { demShare: 0.50, turnout: 67000 }
         };
 
         // Fill in missing counties with moderate baseline
         counties.forEach(county => {
             if (!historicalData[county]) {
-                historicalData[county] = { demShare: 0.42, turnout: 35000 };
+                historicalData[county] = { demShare: 0.42, turnout: 31500 };
             }
         });
 

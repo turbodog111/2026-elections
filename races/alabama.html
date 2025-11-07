@@ -10,7 +10,7 @@
     <div class="container">
         <div class="header">
             <h1>Alabama Senate Race - 2026</h1>
-            <div class="version-badge">v1.3</div>
+            <div class="version-badge">v1.4</div>
             <a href="../index.html" class="back-link">← Back to Map</a>
         </div>
 
@@ -69,7 +69,7 @@
         </div>
     </div>
 
-    <script src="projection-engine.js?v=3"></script>
+    <script src="projection-engine.js?v=4"></script>
     <script>
         // Alabama major counties
         const counties = [
@@ -84,36 +84,36 @@
 
         // Historical data (Deep red state - Republican stronghold)
         const historicalData = {
-            'Jefferson': { demShare: 0.52, turnout: 380000 },
-            'Mobile': { demShare: 0.42, turnout: 210000 },
-            'Madison': { demShare: 0.46, turnout: 190000 },
-            'Montgomery': { demShare: 0.54, turnout: 125000 },
-            'Shelby': { demShare: 0.25, turnout: 130000 },
-            'Tuscaloosa': { demShare: 0.47, turnout: 105000 },
-            'Baldwin': { demShare: 0.28, turnout: 125000 },
-            'Lee': { demShare: 0.48, turnout: 82000 },
-            'Morgan': { demShare: 0.35, turnout: 68000 },
-            'Calhoun': { demShare: 0.38, turnout: 62000 },
-            'Etowah': { demShare: 0.37, turnout: 58000 },
-            'Houston': { demShare: 0.36, turnout: 55000 },
-            'Lauderdale': { demShare: 0.35, turnout: 52000 },
-            'Marshall': { demShare: 0.22, turnout: 50000 },
-            'DeKalb': { demShare: 0.20, turnout: 38000 },
-            'Limestone': { demShare: 0.40, turnout: 52000 },
-            'Cullman': { demShare: 0.18, turnout: 45000 },
-            'Elmore': { demShare: 0.32, turnout: 48000 },
-            'Autauga': { demShare: 0.38, turnout: 35000 },
-            'St. Clair': { demShare: 0.24, turnout: 48000 },
-            'Macon': { demShare: 0.82, turnout: 10000 },
-            'Dallas': { demShare: 0.78, turnout: 20000 },
-            'Perry': { demShare: 0.75, turnout: 5000 },
-            'Sumter': { demShare: 0.74, turnout: 6000 }
+            'Jefferson': { demShare: 0.52, turnout: 350000 },
+            'Mobile': { demShare: 0.42, turnout: 195000 },
+            'Madison': { demShare: 0.46, turnout: 175000 },
+            'Montgomery': { demShare: 0.54, turnout: 115000 },
+            'Shelby': { demShare: 0.25, turnout: 120000 },
+            'Tuscaloosa': { demShare: 0.47, turnout: 97000 },
+            'Baldwin': { demShare: 0.28, turnout: 115000 },
+            'Lee': { demShare: 0.48, turnout: 75000 },
+            'Morgan': { demShare: 0.35, turnout: 62000 },
+            'Calhoun': { demShare: 0.38, turnout: 57000 },
+            'Etowah': { demShare: 0.37, turnout: 53000 },
+            'Houston': { demShare: 0.36, turnout: 50000 },
+            'Lauderdale': { demShare: 0.35, turnout: 48000 },
+            'Marshall': { demShare: 0.22, turnout: 46000 },
+            'DeKalb': { demShare: 0.20, turnout: 35000 },
+            'Limestone': { demShare: 0.40, turnout: 48000 },
+            'Cullman': { demShare: 0.18, turnout: 41000 },
+            'Elmore': { demShare: 0.32, turnout: 44000 },
+            'Autauga': { demShare: 0.38, turnout: 32000 },
+            'St. Clair': { demShare: 0.24, turnout: 44000 },
+            'Macon': { demShare: 0.82, turnout: 9000 },
+            'Dallas': { demShare: 0.78, turnout: 18000 },
+            'Perry': { demShare: 0.75, turnout: 4500 },
+            'Sumter': { demShare: 0.74, turnout: 5500 }
         };
 
         // Fill in missing counties with Republican-leaning baseline
         counties.forEach(county => {
             if (!historicalData[county]) {
-                historicalData[county] = { demShare: 0.35, turnout: 25000 };
+                historicalData[county] = { demShare: 0.35, turnout: 23000 };
             }
         });
 

@@ -10,7 +10,7 @@
     <div class="container">
         <div class="header">
             <h1>Idaho Senate Race - 2026</h1>
-            <div class="version-badge">v1.3</div>
+            <div class="version-badge">v1.4</div>
             <a href="../index.html" class="back-link">← Back to Map</a>
         </div>
 
@@ -69,7 +69,7 @@
         </div>
     </div>
 
-    <script src="projection-engine.js?v=3"></script>
+    <script src="projection-engine.js?v=4"></script>
     <script>
         // Idaho major counties
         const counties = [
@@ -82,26 +82,26 @@
 
         // Historical data (Deep red state)
         const historicalData = {
-            'Ada': { demShare: 0.43, turnout: 265000 },
-            'Canyon': { demShare: 0.32, turnout: 120000 },
-            'Kootenai': { demShare: 0.30, turnout: 100000 },
-            'Bonneville': { demShare: 0.28, turnout: 62000 },
-            'Twin Falls': { demShare: 0.30, turnout: 48000 },
-            'Bannock': { demShare: 0.40, turnout: 48000 },
-            'Nez Perce': { demShare: 0.38, turnout: 24000 },
-            'Madison': { demShare: 0.22, turnout: 22000 },
-            'Bingham': { demShare: 0.26, turnout: 26000 },
-            'Elmore': { demShare: 0.32, turnout: 16000 },
-            'Idaho': { demShare: 0.25, turnout: 10000 },
-            'Latah': { demShare: 0.52, turnout: 24000 },
-            'Blaine': { demShare: 0.62, turnout: 15000 },
-            'Teton': { demShare: 0.48, turnout: 8000 }
+            'Ada': { demShare: 0.43, turnout: 250000 },
+            'Canyon': { demShare: 0.32, turnout: 113000 },
+            'Kootenai': { demShare: 0.30, turnout: 94000 },
+            'Bonneville': { demShare: 0.28, turnout: 58000 },
+            'Twin Falls': { demShare: 0.30, turnout: 45000 },
+            'Bannock': { demShare: 0.40, turnout: 45000 },
+            'Nez Perce': { demShare: 0.38, turnout: 23000 },
+            'Madison': { demShare: 0.22, turnout: 21000 },
+            'Bingham': { demShare: 0.26, turnout: 24000 },
+            'Elmore': { demShare: 0.32, turnout: 15000 },
+            'Idaho': { demShare: 0.25, turnout: 9400 },
+            'Latah': { demShare: 0.52, turnout: 23000 },
+            'Blaine': { demShare: 0.62, turnout: 14000 },
+            'Teton': { demShare: 0.48, turnout: 7500 }
         };
 
         // Fill in missing counties with Republican-leaning baseline
         counties.forEach(county => {
             if (!historicalData[county]) {
-                historicalData[county] = { demShare: 0.28, turnout: 12000 };
+                historicalData[county] = { demShare: 0.28, turnout: 11300 };
             }
         });
 

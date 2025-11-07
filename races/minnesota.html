@@ -10,7 +10,7 @@
     <div class="container">
         <div class="header">
             <h1>Minnesota Senate Race - 2026</h1>
-            <div class="version-badge">v1.3</div>
+            <div class="version-badge">v1.4</div>
             <a href="../index.html" class="back-link">← Back to Map</a>
         </div>
 
@@ -69,7 +69,7 @@
         </div>
     </div>
 
-    <script src="projection-engine.js?v=3"></script>
+    <script src="projection-engine.js?v=4"></script>
     <script>
         // Minnesota major counties
         const counties = [
@@ -85,29 +85,29 @@
 
         // Historical data (Blue state - Democratic lean)
         const historicalData = {
-            'Hennepin': { demShare: 0.68, turnout: 780000 },
-            'Ramsey': { demShare: 0.68, turnout: 340000 },
-            'Dakota': { demShare: 0.58, turnout: 280000 },
-            'Anoka': { demShare: 0.52, turnout: 225000 },
-            'Washington': { demShare: 0.56, turnout: 170000 },
-            'St. Louis': { demShare: 0.56, turnout: 120000 },
-            'Olmsted': { demShare: 0.54, turnout: 95000 },
-            'Scott': { demShare: 0.50, turnout: 95000 },
-            'Stearns': { demShare: 0.48, turnout: 95000 },
-            'Wright': { demShare: 0.42, turnout: 88000 },
-            'Carver': { demShare: 0.45, turnout: 70000 },
-            'Blue Earth': { demShare: 0.54, turnout: 42000 },
-            'Rice': { demShare: 0.52, turnout: 42000 },
-            'Crow Wing': { demShare: 0.42, turnout: 42000 },
-            'Otter Tail': { demShare: 0.38, turnout: 38000 },
-            'Sherburne': { demShare: 0.45, turnout: 62000 },
-            'Clay': { demShare: 0.52, turnout: 35000 }
+            'Hennepin': { demShare: 0.68, turnout: 728000 },
+            'Ramsey': { demShare: 0.68, turnout: 317000 },
+            'Dakota': { demShare: 0.58, turnout: 261000 },
+            'Anoka': { demShare: 0.52, turnout: 210000 },
+            'Washington': { demShare: 0.56, turnout: 159000 },
+            'St. Louis': { demShare: 0.56, turnout: 112000 },
+            'Olmsted': { demShare: 0.54, turnout: 89000 },
+            'Scott': { demShare: 0.50, turnout: 89000 },
+            'Stearns': { demShare: 0.48, turnout: 89000 },
+            'Wright': { demShare: 0.42, turnout: 82000 },
+            'Carver': { demShare: 0.45, turnout: 65000 },
+            'Blue Earth': { demShare: 0.54, turnout: 39000 },
+            'Rice': { demShare: 0.52, turnout: 39000 },
+            'Crow Wing': { demShare: 0.42, turnout: 39000 },
+            'Otter Tail': { demShare: 0.38, turnout: 35000 },
+            'Sherburne': { demShare: 0.45, turnout: 58000 },
+            'Clay': { demShare: 0.52, turnout: 33000 }
         };
 
         // Fill in missing counties with moderate baseline
         counties.forEach(county => {
             if (!historicalData[county]) {
-                historicalData[county] = { demShare: 0.48, turnout: 28000 };
+                historicalData[county] = { demShare: 0.48, turnout: 26000 };
             }
         });
 
