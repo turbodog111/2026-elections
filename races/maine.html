@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maine Senate Race - 2026 Projection</title>
+    <link rel="stylesheet" href="race-styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Maine Senate Race - 2026</h1>
+            <a href="../index.html" class="back-link">← Back to Map</a>
+        </div>
+
+        <div class="content-grid">
+            <div class="projection-panel">
+                <div class="projection-result tossup" id="projection-result">
+                    <h2 id="projection-text">Too Close To Call</h2>
+                    <p class="projection-confidence" id="projection-confidence">Enter vote data to see projection</p>
+                </div>
+
+                <div class="vote-totals">
+                    <div class="vote-total dem">
+                        <div class="label">Democrat Votes</div>
+                        <div class="number" id="dem-votes">0</div>
+                    </div>
+                    <div class="vote-total rep">
+                        <div class="label">Republican Votes</div>
+                        <div class="number" id="rep-votes">0</div>
+                    </div>
+                </div>
+
+                <div class="vote-bar">
+                    <div class="dem-bar" id="dem-bar" style="width: 50%;">50%</div>
+                    <div class="rep-bar" id="rep-bar" style="width: 50%;">50%</div>
+                </div>
+
+                <div class="projection-details">
+                    <h3>Projection Details</h3>
+                    <div class="detail-row">
+                        <span class="detail-label">Total Votes Reported:</span>
+                        <span class="detail-value" id="total-votes">0</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Counties Reporting:</span>
+                        <span class="detail-value" id="counties-reporting">0 / 16</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Vote Margin:</span>
+                        <span class="detail-value" id="vote-margin">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Percentage Margin:</span>
+                        <span class="detail-value" id="pct-margin">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="county-input-section">
+                <h2>County Vote Totals</h2>
+                <div id="county-list"></div>
+                <div class="controls">
+                    <button class="btn btn-calculate" onclick="projection.calculateAdvancedProjection()">Calculate Projection</button>
+                    <button class="btn btn-reset" onclick="projection.resetVotes()">Reset All</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="projection-engine.js"></script>
+    <script>
+        // Maine counties (all 16)
+        const counties = [
+            'Cumberland', 'York', 'Penobscot', 'Kennebec', 'Androscoggin', 'Aroostook',
+            'Oxford', 'Somerset', 'Hancock', 'Sagadahoc', 'Knox', 'Waldo', 'Lincoln',
+            'Franklin', 'Piscataquis', 'Washington'
+        ];
+
+        // Historical data (2020 Senate race - Collins vs Gideon baseline)
+        const historicalData = {
+            'Cumberland': { demShare: 0.56, turnout: 185000 },
+            'York': { demShare: 0.48, turnout: 130000 },
+            'Penobscot': { demShare: 0.47, turnout: 85000 },
+            'Kennebec': { demShare: 0.50, turnout: 70000 },
+            'Androscoggin': { demShare: 0.50, turnout: 62000 },
+            'Aroostook': { demShare: 0.44, turnout: 35000 },
+            'Oxford': { demShare: 0.43, turnout: 32000 },
+            'Somerset': { demShare: 0.43, turnout: 28000 },
+            'Hancock': { demShare: 0.49, turnout: 35000 },
+            'Sagadahoc': { demShare: 0.52, turnout: 22000 },
+            'Knox': { demShare: 0.50, turnout: 25000 },
+            'Waldo': { demShare: 0.51, turnout: 24000 },
+            'Lincoln': { demShare: 0.51, turnout: 23000 },
+            'Franklin': { demShare: 0.46, turnout: 18000 },
+            'Piscataquis': { demShare: 0.40, turnout: 10000 },
+            'Washington': { demShare: 0.44, turnout: 17000 },
+        };
+
+        // Initialize projection system
+        const projection = new RaceProjection('Maine', counties, historicalData);
+        projection.initialize();
+    </script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alabama Senate Race - 2026 Projection</title>
+    <link rel="stylesheet" href="race-styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Alabama Senate Race - 2026</h1>
+            <a href="../index.html" class="back-link">← Back to Map</a>
+        </div>
+
+        <div class="content-grid">
+            <div class="projection-panel">
+                <div class="projection-result tossup" id="projection-result">
+                    <h2 id="projection-text">Too Close To Call</h2>
+                    <p class="projection-confidence" id="projection-confidence">Enter vote data to see projection</p>
+                </div>
+
+                <div class="vote-totals">
+                    <div class="vote-total dem">
+                        <div class="label">Democrat Votes</div>
+                        <div class="number" id="dem-votes">0</div>
+                    </div>
+                    <div class="vote-total rep">
+                        <div class="label">Republican Votes</div>
+                        <div class="number" id="rep-votes">0</div>
+                    </div>
+                </div>
+
+                <div class="vote-bar">
+                    <div class="dem-bar" id="dem-bar" style="width: 50%;">50%</div>
+                    <div class="rep-bar" id="rep-bar" style="width: 50%;">50%</div>
+                </div>
+
+                <div class="projection-details">
+                    <h3>Projection Details</h3>
+                    <div class="detail-row">
+                        <span class="detail-label">Total Votes Reported:</span>
+                        <span class="detail-value" id="total-votes">0</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Counties Reporting:</span>
+                        <span class="detail-value" id="counties-reporting">0 / 67</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Vote Margin:</span>
+                        <span class="detail-value" id="vote-margin">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Percentage Margin:</span>
+                        <span class="detail-value" id="pct-margin">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="county-input-section">
+                <h2>County Vote Totals</h2>
+                <div id="county-list"></div>
+                <div class="controls">
+                    <button class="btn btn-calculate" onclick="projection.calculateAdvancedProjection()">Calculate Projection</button>
+                    <button class="btn btn-reset" onclick="projection.resetVotes()">Reset All</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="projection-engine.js"></script>
+    <script>
+        // Alabama major counties
+        const counties = [
+            'Jefferson', 'Mobile', 'Madison', 'Montgomery', 'Shelby', 'Tuscaloosa', 'Baldwin',
+            'Lee', 'Morgan', 'Calhoun', 'Etowah', 'Houston', 'Lauderdale', 'Marshall', 'DeKalb',
+            'Limestone', 'Cullman', 'Elmore', 'Autauga', 'St. Clair', 'Walker', 'Talladega',
+            'Blount', 'Cherokee', 'Chambers', 'Chilton', 'Coffee', 'Colbert', 'Dale', 'Dallas',
+            'Franklin', 'Geneva', 'Hale', 'Henry', 'Jackson', 'Lamar', 'Lawrence', 'Macon',
+            'Marengo', 'Marion', 'Perry', 'Pickens', 'Pike', 'Randolph', 'Russell', 'Sumter',
+            'Tallapoosa', 'Winston'
+        ];
+
+        // Historical data (Deep red state - Republican stronghold)
+        const historicalData = {
+            'Jefferson': { demShare: 0.52, turnout: 380000 },
+            'Mobile': { demShare: 0.42, turnout: 210000 },
+            'Madison': { demShare: 0.46, turnout: 190000 },
+            'Montgomery': { demShare: 0.54, turnout: 125000 },
+            'Shelby': { demShare: 0.25, turnout: 130000 },
+            'Tuscaloosa': { demShare: 0.47, turnout: 105000 },
+            'Baldwin': { demShare: 0.28, turnout: 125000 },
+            'Lee': { demShare: 0.48, turnout: 82000 },
+            'Morgan': { demShare: 0.35, turnout: 68000 },
+            'Calhoun': { demShare: 0.38, turnout: 62000 },
+            'Etowah': { demShare: 0.37, turnout: 58000 },
+            'Houston': { demShare: 0.36, turnout: 55000 },
+            'Lauderdale': { demShare: 0.35, turnout: 52000 },
+            'Marshall': { demShare: 0.22, turnout: 50000 },
+            'DeKalb': { demShare: 0.20, turnout: 38000 },
+            'Limestone': { demShare: 0.40, turnout: 52000 },
+            'Cullman': { demShare: 0.18, turnout: 45000 },
+            'Elmore': { demShare: 0.32, turnout: 48000 },
+            'Autauga': { demShare: 0.38, turnout: 35000 },
+            'St. Clair': { demShare: 0.24, turnout: 48000 },
+            'Macon': { demShare: 0.82, turnout: 10000 },
+            'Dallas': { demShare: 0.78, turnout: 20000 },
+            'Perry': { demShare: 0.75, turnout: 5000 },
+            'Sumter': { demShare: 0.74, turnout: 6000 }
+        };
+
+        // Fill in missing counties with Republican-leaning baseline
+        counties.forEach(county => {
+            if (!historicalData[county]) {
+                historicalData[county] = { demShare: 0.35, turnout: 25000 };
+            }
+        });
+
+        // Initialize projection system
+        const projection = new RaceProjection('Alabama', counties, historicalData);
+        projection.initialize();
+    </script>
+</body>
+</html>

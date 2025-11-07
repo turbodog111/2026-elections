@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virginia Senate Race - 2026 Projection</title>
+    <link rel="stylesheet" href="race-styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Virginia Senate Race - 2026</h1>
+            <a href="../index.html" class="back-link">← Back to Map</a>
+        </div>
+
+        <div class="content-grid">
+            <div class="projection-panel">
+                <div class="projection-result tossup" id="projection-result">
+                    <h2 id="projection-text">Too Close To Call</h2>
+                    <p class="projection-confidence" id="projection-confidence">Enter vote data to see projection</p>
+                </div>
+
+                <div class="vote-totals">
+                    <div class="vote-total dem">
+                        <div class="label">Democrat Votes</div>
+                        <div class="number" id="dem-votes">0</div>
+                    </div>
+                    <div class="vote-total rep">
+                        <div class="label">Republican Votes</div>
+                        <div class="number" id="rep-votes">0</div>
+                    </div>
+                </div>
+
+                <div class="vote-bar">
+                    <div class="dem-bar" id="dem-bar" style="width: 50%;">50%</div>
+                    <div class="rep-bar" id="rep-bar" style="width: 50%;">50%</div>
+                </div>
+
+                <div class="projection-details">
+                    <h3>Projection Details</h3>
+                    <div class="detail-row">
+                        <span class="detail-label">Total Votes Reported:</span>
+                        <span class="detail-value" id="total-votes">0</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Counties/Cities Reporting:</span>
+                        <span class="detail-value" id="counties-reporting">0 / 133</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Vote Margin:</span>
+                        <span class="detail-value" id="vote-margin">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Percentage Margin:</span>
+                        <span class="detail-value" id="pct-margin">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="county-input-section">
+                <h2>County/City Vote Totals</h2>
+                <div id="county-list"></div>
+                <div class="controls">
+                    <button class="btn btn-calculate" onclick="projection.calculateAdvancedProjection()">Calculate Projection</button>
+                    <button class="btn btn-reset" onclick="projection.resetVotes()">Reset All</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="projection-engine.js"></script>
+    <script>
+        // Virginia major counties and cities
+        const counties = [
+            'Fairfax', 'Virginia Beach', 'Prince William', 'Loudoun', 'Henrico', 'Chesapeake',
+            'Arlington', 'Norfolk', 'Richmond', 'Alexandria', 'Hampton', 'Newport News',
+            'Albemarle', 'Chesterfield', 'Spotsylvania', 'Stafford', 'Roanoke', 'Suffolk',
+            'Portsmouth', 'Lynchburg', 'Roanoke County', 'Augusta', 'York', 'James City',
+            'Montgomery', 'Frederick', 'Hanover', 'Pittsylvania', 'Prince George', 'Fauquier'
+        ];
+
+        // Historical data (2024 Senate race - Kaine vs Cao baseline)
+        const historicalData = {
+            'Fairfax': { demShare: 0.65, turnout: 620000 },
+            'Virginia Beach': { demShare: 0.49, turnout: 245000 },
+            'Prince William': { demShare: 0.60, turnout: 260000 },
+            'Loudoun': { demShare: 0.56, turnout: 265000 },
+            'Henrico': { demShare: 0.61, turnout: 200000 },
+            'Chesapeake': { demShare: 0.48, turnout: 130000 },
+            'Arlington': { demShare: 0.78, turnout: 135000 },
+            'Norfolk': { demShare: 0.64, turnout: 110000 },
+            'Richmond': { demShare: 0.82, turnout: 115000 },
+            'Alexandria': { demShare: 0.82, turnout: 95000 },
+            'Hampton': { demShare: 0.63, turnout: 70000 },
+            'Newport News': { demShare: 0.59, turnout: 90000 },
+            'Albemarle': { demShare: 0.63, turnout: 65000 },
+            'Chesterfield': { demShare: 0.48, turnout: 200000 },
+            'Spotsylvania': { demShare: 0.44, turnout: 75000 },
+            'Stafford': { demShare: 0.47, turnout: 85000 },
+            'Roanoke': { demShare: 0.64, turnout: 50000 },
+            'Suffolk': { demShare: 0.54, turnout: 55000 },
+        };
+
+        // Fill in missing counties with Democratic-leaning baseline
+        counties.forEach(county => {
+            if (!historicalData[county]) {
+                historicalData[county] = { demShare: 0.52, turnout: 35000 };
+            }
+        });
+
+        // Initialize projection system
+        const projection = new RaceProjection('Virginia', counties, historicalData);
+        projection.initialize();
+    </script>
+</body>
+</html>

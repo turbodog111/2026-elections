@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Illinois Senate Race - 2026 Projection</title>
+    <link rel="stylesheet" href="race-styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Illinois Senate Race - 2026</h1>
+            <a href="../index.html" class="back-link">← Back to Map</a>
+        </div>
+
+        <div class="content-grid">
+            <div class="projection-panel">
+                <div class="projection-result tossup" id="projection-result">
+                    <h2 id="projection-text">Too Close To Call</h2>
+                    <p class="projection-confidence" id="projection-confidence">Enter vote data to see projection</p>
+                </div>
+
+                <div class="vote-totals">
+                    <div class="vote-total dem">
+                        <div class="label">Democrat Votes</div>
+                        <div class="number" id="dem-votes">0</div>
+                    </div>
+                    <div class="vote-total rep">
+                        <div class="label">Republican Votes</div>
+                        <div class="number" id="rep-votes">0</div>
+                    </div>
+                </div>
+
+                <div class="vote-bar">
+                    <div class="dem-bar" id="dem-bar" style="width: 50%;">50%</div>
+                    <div class="rep-bar" id="rep-bar" style="width: 50%;">50%</div>
+                </div>
+
+                <div class="projection-details">
+                    <h3>Projection Details</h3>
+                    <div class="detail-row">
+                        <span class="detail-label">Total Votes Reported:</span>
+                        <span class="detail-value" id="total-votes">0</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Counties Reporting:</span>
+                        <span class="detail-value" id="counties-reporting">0 / 102</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Vote Margin:</span>
+                        <span class="detail-value" id="vote-margin">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Percentage Margin:</span>
+                        <span class="detail-value" id="pct-margin">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="county-input-section">
+                <h2>County Vote Totals</h2>
+                <div id="county-list"></div>
+                <div class="controls">
+                    <button class="btn btn-calculate" onclick="projection.calculateAdvancedProjection()">Calculate Projection</button>
+                    <button class="btn btn-reset" onclick="projection.resetVotes()">Reset All</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="projection-engine.js"></script>
+    <script>
+        // Illinois major counties
+        const counties = [
+            'Cook', 'DuPage', 'Lake', 'Will', 'Kane', 'McHenry', 'Winnebago', 'Madison',
+            'St. Clair', 'Champaign', 'Sangamon', 'Peoria', 'Tazewell', 'McLean', 'Rock Island',
+            'Kankakee', 'DeKalb', 'Adams', 'Macon', 'Knox', 'LaSalle', 'Vermilion', 'Williamson',
+            'Jackson', 'Kendall', 'Jefferson', 'Grundy', 'Boone', 'Ogle', 'Whiteside',
+            'Douglas', 'Stephenson', 'Christian', 'Effingham', 'Clinton', 'Monroe', 'Marion',
+            'Livingston', 'Montgomery', 'Woodford', 'Morgan', 'Macoupin', 'Bond', 'Jasper',
+            'Wayne', 'Hancock', 'Crawford', 'Coles', 'Bureau', 'Franklin'
+        ];
+
+        // Historical data (Blue state - strong Democratic lean from Cook County)
+        const historicalData = {
+            'Cook': { demShare: 0.74, turnout: 2800000 },
+            'DuPage': { demShare: 0.58, turnout: 580000 },
+            'Lake': { demShare: 0.60, turnout: 420000 },
+            'Will': { demShare: 0.56, turnout: 410000 },
+            'Kane': { demShare: 0.54, turnout: 310000 },
+            'McHenry': { demShare: 0.42, turnout: 190000 },
+            'Winnebago': { demShare: 0.51, turnout: 165000 },
+            'Madison': { demShare: 0.48, turnout: 155000 },
+            'St. Clair': { demShare: 0.58, turnout: 150000 },
+            'Champaign': { demShare: 0.56, turnout: 120000 },
+            'Sangamon': { demShare: 0.52, turnout: 125000 },
+            'Peoria': { demShare: 0.50, turnout: 110000 },
+            'Tazewell': { demShare: 0.38, turnout: 78000 },
+            'McLean': { demShare: 0.48, turnout: 105000 },
+            'Rock Island': { demShare: 0.55, turnout: 85000 },
+            'Kankakee': { demShare: 0.48, turnout: 65000 },
+            'DeKalb': { demShare: 0.52, turnout: 60000 },
+            'Jackson': { demShare: 0.54, turnout: 35000 },
+            'Kendall': { demShare: 0.50, turnout: 75000 }
+        };
+
+        // Fill in missing counties with moderate baseline
+        counties.forEach(county => {
+            if (!historicalData[county]) {
+                historicalData[county] = { demShare: 0.42, turnout: 35000 };
+            }
+        });
+
+        // Initialize projection system
+        const projection = new RaceProjection('Illinois', counties, historicalData);
+        projection.initialize();
+    </script>
+</body>
+</html>
