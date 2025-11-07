@@ -82,6 +82,21 @@ body {
     border: 3px solid #6b7280;
 }
 
+.projection-result.called {
+    border-width: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.2);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+}
+
 .projection-result h2 {
     font-size: 2.5em;
     margin-bottom: 10px;
