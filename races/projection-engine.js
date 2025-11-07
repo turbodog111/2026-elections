@@ -306,8 +306,7 @@ class RaceProjection {
         const resultText = document.getElementById('projection-text');
         const confidenceText = document.getElementById('projection-confidence');
 
-        // Determine winner
-        const demLeading = demPct > 0.5;
+        // Determine winner (demLeading already declared above)
         const leadingParty = demLeading ? 'Democrat' : 'Republican';
 
         // Display certainty percentage
