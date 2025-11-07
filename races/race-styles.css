@@ -389,13 +389,30 @@ body {
     border-bottom: none;
 }
 
+.detail-row.highlight {
+    background: #fef3c7;
+    padding: 10px;
+    margin: 5px -5px;
+    border-radius: 4px;
+    border-bottom: none;
+    font-weight: 600;
+}
+
 .detail-label {
     color: #6b7280;
+}
+
+.detail-row.highlight .detail-label {
+    color: #92400e;
 }
 
 .detail-value {
     font-weight: 600;
     color: #1f2937;
+}
+
+.detail-row.highlight .detail-value {
+    color: #92400e;
 }
 
 /* Custom scrollbar */

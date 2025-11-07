@@ -10,7 +10,7 @@
     <div class="container">
         <div class="header">
             <h1>South Carolina Senate Race - 2026</h1>
-            <div class="version-badge">v1.4</div>
+            <div class="version-badge">v1.5</div>
             <a href="../index.html" class="back-link">← Back to Map</a>
         </div>
 
@@ -37,15 +37,23 @@
                     <div class="rep-bar" id="rep-bar" style="width: 50%;">50%</div>
                 </div>
 
-                <div class="projection-details">
-                    <h3>Projection Details</h3>
-                    <div class="detail-row">
-                        <span class="detail-label">Total Votes Reported:</span>
+                                <div class="projection-details">
+                    <h3>Vote Tracking</h3>
+                    <div class="detail-row highlight">
+                        <span class="detail-label">Expected Total Votes:</span>
+                        <span class="detail-value" id="expected-votes">-</span>
+                    </div>
+                    <div class="detail-row highlight">
+                        <span class="detail-label">Votes Reported:</span>
                         <span class="detail-value" id="total-votes">0</span>
                     </div>
+                    <div class="detail-row highlight">
+                        <span class="detail-label">Est. Votes Remaining:</span>
+                        <span class="detail-value" id="remaining-votes">-</span>
+                    </div>
                     <div class="detail-row">
-                        <span class="detail-label">Counties Reporting:</span>
-                        <span class="detail-value" id="counties-reporting">0 / 46</span>
+                        <span class="detail-label">Percent Reported:</span>
+                        <span class="detail-value" id="percent-reported">0%</span>
                     </div>
                     <div class="detail-row">
                         <span class="detail-label">Vote Margin:</span>
@@ -56,6 +64,7 @@
                         <span class="detail-value" id="pct-margin">-</span>
                     </div>
                 </div>
+            </div>
             </div>
 
             <div class="county-input-section">
@@ -69,7 +78,7 @@
         </div>
     </div>
 
-    <script src="projection-engine.js?v=4"></script>
+    <script src="projection-engine.js?v=5"></script>
     <script>
         // South Carolina counties (all 46)
         const counties = [
