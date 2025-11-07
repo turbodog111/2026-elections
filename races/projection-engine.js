@@ -38,15 +38,53 @@ class RaceProjection {
         this.counties = counties;
         this.historicalData = historicalData;
         this.voteData = {};
+        this.storageKey = `election-2026-${stateName.toLowerCase().replace(/\s/g, '-')}`;
 
-        // Initialize vote data
+        // Try to load saved data first
+        this.loadFromStorage();
+
+        // Initialize vote data for any missing counties
         counties.forEach(county => {
-            this.voteData[county] = { dem: 0, rep: 0 };
+            if (!this.voteData[county]) {
+                this.voteData[county] = { dem: 0, rep: 0 };
+            }
         });
+    }
+
+    saveToStorage() {
+        try {
+            localStorage.setItem(this.storageKey, JSON.stringify(this.voteData));
+        } catch (e) {
+            console.warn('Could not save to localStorage:', e);
+        }
+    }
+
+    loadFromStorage() {
+        try {
+            const saved = localStorage.getItem(this.storageKey);
+            if (saved) {
+                this.voteData = JSON.parse(saved);
+            }
+        } catch (e) {
+            console.warn('Could not load from localStorage:', e);
+            this.voteData = {};
+        }
+    }
+
+    clearStorage() {
+        try {
+            localStorage.removeItem(this.storageKey);
+        } catch (e) {
+            console.warn('Could not clear localStorage:', e);
+        }
     }
 
     generateCountyInputs() {
         const container = document.getElementById('county-list');
+        if (!container) {
+            console.error('County list container not found!');
+            return;
+        }
         container.innerHTML = '';
 
         this.counties.forEach(county => {
@@ -57,21 +95,34 @@ class RaceProjection {
             nameDiv.className = 'county-name';
             nameDiv.textContent = county + ' County';
 
+            // Sanitize county name for use in IDs (remove spaces, periods, etc.)
+            const sanitizedCounty = county.replace(/[\s\.]/g, '-');
+
             const demInput = document.createElement('input');
             demInput.type = 'number';
             demInput.className = 'county-input dem-input';
             demInput.placeholder = 'Dem votes';
             demInput.min = '0';
-            demInput.id = `dem-${county}`;
+            demInput.id = `dem-${sanitizedCounty}`;
+            demInput.dataset.county = county;
             demInput.oninput = () => this.updateVoteTotals();
+            // Load saved value
+            if (this.voteData[county] && this.voteData[county].dem > 0) {
+                demInput.value = this.voteData[county].dem;
+            }
 
             const repInput = document.createElement('input');
             repInput.type = 'number';
             repInput.className = 'county-input rep-input';
             repInput.placeholder = 'Rep votes';
             repInput.min = '0';
-            repInput.id = `rep-${county}`;
+            repInput.id = `rep-${sanitizedCounty}`;
+            repInput.dataset.county = county;
             repInput.oninput = () => this.updateVoteTotals();
+            // Load saved value
+            if (this.voteData[county] && this.voteData[county].rep > 0) {
+                repInput.value = this.voteData[county].rep;
+            }
 
             row.appendChild(nameDiv);
             row.appendChild(demInput);
@@ -79,6 +130,9 @@ class RaceProjection {
 
             container.appendChild(row);
         });
+
+        // Update totals with loaded data
+        this.updateVoteTotals();
     }
 
     updateVoteTotals() {
@@ -87,8 +141,14 @@ class RaceProjection {
         let countiesReporting = 0;
 
         this.counties.forEach(county => {
-            const demInput = document.getElementById(`dem-${county}`);
-            const repInput = document.getElementById(`rep-${county}`);
+            const sanitizedCounty = county.replace(/[\s\.]/g, '-');
+            const demInput = document.getElementById(`dem-${sanitizedCounty}`);
+            const repInput = document.getElementById(`rep-${sanitizedCounty}`);
+
+            if (!demInput || !repInput) {
+                console.error(`Inputs not found for county: ${county}`);
+                return;
+            }
 
             const demVotes = parseInt(demInput.value) || 0;
             const repVotes = parseInt(repInput.value) || 0;
@@ -122,6 +182,9 @@ class RaceProjection {
             document.getElementById('vote-margin').textContent = margin.toLocaleString();
             document.getElementById('pct-margin').textContent = marginPct + '%';
         }
+
+        // Save to localStorage
+        this.saveToStorage();
     }
 
     calculateAdvancedProjection() {
@@ -315,10 +378,17 @@ class RaceProjection {
 
     resetVotes() {
         this.counties.forEach(county => {
-            document.getElementById(`dem-${county}`).value = '';
-            document.getElementById(`rep-${county}`).value = '';
+            const sanitizedCounty = county.replace(/[\s\.]/g, '-');
+            const demInput = document.getElementById(`dem-${sanitizedCounty}`);
+            const repInput = document.getElementById(`rep-${sanitizedCounty}`);
+
+            if (demInput) demInput.value = '';
+            if (repInput) repInput.value = '';
             this.voteData[county] = { dem: 0, rep: 0 };
         });
+
+        // Clear localStorage
+        this.clearStorage();
 
         document.getElementById('dem-votes').textContent = '0';
         document.getElementById('rep-votes').textContent = '0';
