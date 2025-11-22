@@ -24,40 +24,40 @@ Then:
 
 ## DELAWARE (3 counties)
 
-### Election 1: [Year - Candidates]
+### Election 1: [2024 - Senate]
 ```
-Kent:        { demShare: 0.XX, turnout: XXXXX }
-New Castle:  { demShare: 0.XX, turnout: XXXXX }
-Sussex:      { demShare: 0.XX, turnout: XXXXX }
+Kent:        { demShare: 0.5120, turnout: 86268 }
+New Castle:  { demShare: 0.6526, turnout: 270005 }
+Sussex:      { demShare: 0.4360, turnout: 144333 }
 ```
 
-### Election 2: [Year - Candidates]
+### Election 2: [2020 - Senate]
 ```
-Kent:        { demShare: 0.XX, turnout: XXXXX }
-New Castle:  { demShare: 0.XX, turnout: XXXXX }
-Sussex:      { demShare: 0.XX, turnout: XXXXX }
+Kent:        { demShare: 0.5165, turnout: 84975 }
+New Castle:  { demShare: 0.6862, turnout: 279462 }
+Sussex:      { demShare: 0.4438, turnout: 126498 }
 ```
 
 ---
 
 ## RHODE ISLAND (5 counties)
 
-### Election 1: [Year - Candidates]
+### Election 1: [2024 - Senate]
 ```
-Bristol:     { demShare: 0.XX, turnout: XXXXX }
-Kent:        { demShare: 0.XX, turnout: XXXXX }
-Newport:     { demShare: 0.XX, turnout: XXXXX }
-Providence:  { demShare: 0.XX, turnout: XXXXX }
-Washington:  { demShare: 0.XX, turnout: XXXXX }
+Bristol:     { demShare: 0.638, turnout: 27489 }
+Kent:        { demShare: 0.541, turnout: 90629 }
+Newport:     { demShare: 0.632, turnout: 43183 }
+Providence:  { demShare: 0.613, turnout: 255395 }
+Washington:  { demShare: 0.583, turnout: 73779 }
 ```
 
-### Election 2: [Year - Candidates]
+### Election 2: [2020 - Senate]
 ```
-Bristol:     { demShare: 0.XX, turnout: XXXXX }
-Kent:        { demShare: 0.XX, turnout: XXXXX }
-Newport:     { demShare: 0.XX, turnout: XXXXX }
-Providence:  { demShare: 0.XX, turnout: XXXXX }
-Washington:  { demShare: 0.XX, turnout: XXXXX }
+Bristol:     { demShare: 0.698, turnout: 27359 }
+Kent:        { demShare: 0.608, turnout: 90125 }
+Newport:     { demShare: 0.693, turnout: 44158 }
+Providence:  { demShare: 0.682, turnout: 257911 }
+Washington:  { demShare: 0.642, turnout: 73482 }
 ```
 
 ---
