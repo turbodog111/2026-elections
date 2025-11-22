@@ -93,7 +93,16 @@ class RaceProjection {
 
             const nameDiv = document.createElement('div');
             nameDiv.className = 'county-name';
-            nameDiv.textContent = county + ' County';
+
+            // Add historical baseline info
+            const historical = this.historicalData[county];
+            const histDemPct = historical ? (historical.demShare * 100).toFixed(1) : '50.0';
+            const histRepPct = historical ? ((1 - historical.demShare) * 100).toFixed(1) : '50.0';
+
+            nameDiv.innerHTML = `
+                <div class="county-name-text">${county} County</div>
+                <div class="historical-baseline">Historical: D ${histDemPct}% | R ${histRepPct}%</div>
+            `;
 
             // Sanitize county name for use in IDs (remove spaces, periods, etc.)
             const sanitizedCounty = county.replace(/[\s\.]/g, '-');
@@ -124,9 +133,16 @@ class RaceProjection {
                 repInput.value = this.voteData[county].rep;
             }
 
+            // Add performance indicator
+            const performanceDiv = document.createElement('div');
+            performanceDiv.className = 'performance-indicator';
+            performanceDiv.id = `performance-${sanitizedCounty}`;
+            performanceDiv.innerHTML = '<span class="awaiting-data">Awaiting data</span>';
+
             row.appendChild(nameDiv);
             row.appendChild(demInput);
             row.appendChild(repInput);
+            row.appendChild(performanceDiv);
 
             container.appendChild(row);
         });
@@ -148,11 +164,12 @@ class RaceProjection {
             }
         });
 
-        // Calculate actual reported votes
+        // Calculate actual reported votes and update performance indicators
         this.counties.forEach(county => {
             const sanitizedCounty = county.replace(/[\s\.]/g, '-');
             const demInput = document.getElementById(`dem-${sanitizedCounty}`);
             const repInput = document.getElementById(`rep-${sanitizedCounty}`);
+            const performanceDiv = document.getElementById(`performance-${sanitizedCounty}`);
 
             if (!demInput || !repInput) {
                 console.error(`Inputs not found for county: ${county}`);
@@ -161,11 +178,50 @@ class RaceProjection {
 
             const demVotes = parseInt(demInput.value) || 0;
             const repVotes = parseInt(repInput.value) || 0;
+            const countyTotal = demVotes + repVotes;
 
             this.voteData[county] = { dem: demVotes, rep: repVotes };
 
             totalDem += demVotes;
             totalRep += repVotes;
+
+            // Update county-level performance indicator
+            if (performanceDiv && countyTotal > 0) {
+                const currentDemShare = demVotes / countyTotal;
+                const currentDemPct = (currentDemShare * 100).toFixed(1);
+                const historical = this.historicalData[county];
+
+                if (historical && historical.demShare !== undefined) {
+                    const historicalDemShare = historical.demShare;
+                    const performanceDiff = currentDemShare - historicalDemShare;
+                    const performanceDiffPct = (performanceDiff * 100).toFixed(1);
+
+                    let performanceClass = '';
+                    let performanceText = '';
+
+                    if (Math.abs(performanceDiff) < 0.02) {
+                        // Within 2% of historical - neutral
+                        performanceClass = 'neutral';
+                        performanceText = `Current: D ${currentDemPct}% <span class="perf-neutral">≈ Historical</span>`;
+                    } else if (performanceDiff > 0) {
+                        // Democrats overperforming
+                        performanceClass = 'dem-over';
+                        performanceText = `Current: D ${currentDemPct}% <span class="perf-dem">+${performanceDiffPct}% vs hist</span>`;
+                    } else {
+                        // Republicans overperforming (Dems underperforming)
+                        performanceClass = 'rep-over';
+                        performanceText = `Current: D ${currentDemPct}% <span class="perf-rep">${performanceDiffPct}% vs hist</span>`;
+                    }
+
+                    performanceDiv.className = `performance-indicator ${performanceClass}`;
+                    performanceDiv.innerHTML = performanceText;
+                } else {
+                    performanceDiv.innerHTML = `Current: D ${currentDemPct}%`;
+                }
+            } else if (performanceDiv) {
+                performanceDiv.className = 'performance-indicator';
+                performanceDiv.innerHTML = '<span class="awaiting-data">Awaiting data</span>';
+            }
         });
 
         const totalVotesReported = totalDem + totalRep;
@@ -204,6 +260,7 @@ class RaceProjection {
         let reportedCounties = 0;
         let expectedDemOverperformance = 0;
         let expectedRepOverperformance = 0;
+        let weightedPerformanceShift = 0; // Tracks overall performance trend weighted by county size
 
         // Calculate current totals and compare to historical benchmarks
         this.counties.forEach(county => {
@@ -224,8 +281,11 @@ class RaceProjection {
                     const historicalDemShare = historical.demShare || 0.5;
                     const performanceDiff = currentDemShare - historicalDemShare;
 
-                    // Weight by county size
+                    // Weight by county size for more accurate statewide projection
                     const countyWeight = historical.turnout || 10000;
+
+                    // Track weighted performance shift
+                    weightedPerformanceShift += performanceDiff * countyWeight;
 
                     if (performanceDiff > 0) {
                         expectedDemOverperformance += performanceDiff * countyWeight;
@@ -276,8 +336,37 @@ class RaceProjection {
         // Factor in historical performance
         const overperformanceScore = expectedDemOverperformance - expectedRepOverperformance;
 
+        // PROJECT remaining votes using historical data + observed performance trends
+        let projectedFinalDem = totalDem;
+        let projectedFinalRep = totalRep;
+
+        // For unreported votes, use historical baseline adjusted by observed performance shift
+        this.counties.forEach(county => {
+            const currentDem = this.voteData[county].dem || 0;
+            const currentRep = this.voteData[county].rep || 0;
+            const currentTotal = currentDem + currentRep;
+
+            const historical = this.historicalData[county];
+            if (historical && currentTotal === 0) {
+                // County hasn't reported yet - project using historical + trend
+                const expectedCountyVotes = historical.turnout * PROJECTION_CONFIG.HISTORICAL_CONFIDENCE;
+                const historicalDemShare = historical.demShare || 0.5;
+
+                // Adjust historical share by weighted performance shift observed in other counties
+                const performanceAdjustment = expectedTotalVotes > 0 ?
+                    (weightedPerformanceShift / expectedTotalVotes) : 0;
+                const adjustedDemShare = Math.max(0, Math.min(1, historicalDemShare + performanceAdjustment));
+
+                projectedFinalDem += expectedCountyVotes * adjustedDemShare;
+                projectedFinalRep += expectedCountyVotes * (1 - adjustedDemShare);
+            }
+        });
+
+        const projectedDemLeading = projectedFinalDem > projectedFinalRep;
+        const projectedMargin = Math.abs(projectedFinalDem - projectedFinalRep) / (projectedFinalDem + projectedFinalRep);
+
         // Calculate certainty percentage
-        // Base certainty on margin, reporting percentage, and consistency
+        // Base certainty on margin, reporting percentage, historical consistency, and projections
         let baseCertainty = 0;
         let callReason = '';
 
@@ -291,16 +380,21 @@ class RaceProjection {
             callReason = 'overwhelming margin with high reporting';
         } else {
             // Normal certainty calculation
-            // Margin contribution (0-60%)
-            const marginComponent = Math.min(currentMargin * 300, 0.60); // 20% margin = 60% certainty
+            // Margin contribution (0-50%) - both current and projected
+            const currentMarginComponent = Math.min(currentMargin * 250, 0.35);
+            const projectedMarginComponent = Math.min(projectedMargin * 150, 0.15);
+            const marginComponent = currentMarginComponent + projectedMarginComponent;
 
-            // Reporting contribution (0-30%)
-            const reportingComponent = reportingPercentage * 0.30;
+            // Reporting contribution (0-25%)
+            const reportingComponent = reportingPercentage * 0.25;
 
-            // Historical consistency contribution (0-10%)
-            const consistencyComponent = Math.min(Math.abs(overperformanceScore) / 100000, 0.10);
+            // Historical consistency contribution (0-20%) - INCREASED from 10%
+            const consistencyComponent = Math.min(Math.abs(overperformanceScore) / 80000, 0.20);
 
-            baseCertainty = marginComponent + reportingComponent + consistencyComponent;
+            // Projection agreement bonus (0-5%) - if current leader matches projected leader
+            const projectionAgreement = (demLeading === projectedDemLeading) ? 0.05 : 0;
+
+            baseCertainty = marginComponent + reportingComponent + consistencyComponent + projectionAgreement;
         }
 
         // Convert to percentage
