@@ -73,8 +73,9 @@ body {
 
 .content-grid {
     display: grid;
-    grid-template-columns: 1fr 500px;
+    grid-template-columns: 1fr 1fr;
     gap: 24px;
+    align-items: start;
 }
 
 /* ============================================
@@ -86,7 +87,7 @@ body {
     border-radius: 16px;
     padding: 32px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    max-height: calc(100vh - 140px);
+    height: calc(100vh - 140px);
     display: flex;
     flex-direction: column;
 }
@@ -304,7 +305,8 @@ body {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     display: flex;
     flex-direction: column;
-    max-height: calc(100vh - 140px);
+    height: calc(100vh - 140px);
+    overflow-y: auto;
 }
 
 .projection-result {
@@ -336,15 +338,53 @@ body {
 .projection-result.called {
     border-width: 4px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), 0 0 40px rgba(0, 0, 0, 0.1);
-    animation: pulse-glow 2s ease-in-out infinite;
+    animation: race-called-pulse 3s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
 }
 
-@keyframes pulse-glow {
+.projection-result.called::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    animation: victory-shine 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.projection-result.dem.called::before {
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
+}
+
+.projection-result.rep.called::before {
+    background: radial-gradient(circle, rgba(239, 68, 68, 0.2) 0%, transparent 70%);
+}
+
+@keyframes race-called-pulse {
     0%, 100% {
         transform: scale(1);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), 0 0 40px rgba(0, 0, 0, 0.1);
     }
     50% {
-        transform: scale(1.01);
+        transform: scale(1.015);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 0 60px rgba(0, 0, 0, 0.15);
+    }
+}
+
+@keyframes victory-shine {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(50%, 50%) rotate(45deg);
+        opacity: 0;
     }
 }
 
@@ -353,32 +393,24 @@ body {
     display: flex;
     justify-content: center;
     margin-bottom: 16px;
+    position: relative;
 }
 
 .checkmark {
-    width: 90px;
-    height: 90px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     display: block;
-    stroke-width: 3;
+    stroke-width: 4;
     stroke: #fff;
     stroke-miterlimit: 10;
-    box-shadow: inset 0px 0px 0px #22c55e;
-    animation: checkmark-fill 0.4s ease-in-out 0.4s forwards, checkmark-scale 3s 0.9s ease-in-out infinite;
-}
-
-.projection-result.dem.called .checkmark {
-    stroke: #1e40af;
-}
-
-.projection-result.rep.called .checkmark {
-    stroke: #b91c1c;
+    position: relative;
 }
 
 .checkmark-circle {
     stroke-dasharray: 166;
     stroke-dashoffset: 166;
-    stroke-width: 3;
+    stroke-width: 4;
     stroke-miterlimit: 10;
     fill: none;
     animation: checkmark-stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
@@ -386,10 +418,16 @@ body {
 
 .projection-result.dem.called .checkmark-circle {
     stroke: #1e40af;
+    fill: #dbeafe;
+    animation: checkmark-stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards,
+               checkmark-fill-dem 0.4s ease-in-out 0.6s forwards;
 }
 
 .projection-result.rep.called .checkmark-circle {
     stroke: #b91c1c;
+    fill: #fee2e2;
+    animation: checkmark-stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards,
+               checkmark-fill-rep 0.4s ease-in-out 0.6s forwards;
 }
 
 .checkmark-check {
@@ -397,6 +435,7 @@ body {
     stroke-dasharray: 48;
     stroke-dashoffset: 48;
     animation: checkmark-stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+    stroke-width: 5;
 }
 
 .projection-result.dem.called .checkmark-check {
@@ -407,24 +446,68 @@ body {
     stroke: #b91c1c;
 }
 
+/* Victory burst animation */
+.checkmark-container::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+}
+
+.projection-result.dem.called .checkmark-container::after {
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, rgba(59, 130, 246, 0) 70%);
+    animation: victory-burst 0.8s ease-out 0.4s;
+}
+
+.projection-result.rep.called .checkmark-container::after {
+    background: radial-gradient(circle, rgba(239, 68, 68, 0.4) 0%, rgba(239, 68, 68, 0) 70%);
+    animation: victory-burst 0.8s ease-out 0.4s;
+}
+
 @keyframes checkmark-stroke {
     100% {
         stroke-dashoffset: 0;
     }
 }
 
-@keyframes checkmark-scale {
-    0%, 100% {
-        transform: none;
+@keyframes checkmark-fill-dem {
+    0% {
+        fill-opacity: 0;
     }
-    50% {
-        transform: scale3d(1.1, 1.1, 1);
+    100% {
+        fill: #3b82f6;
+        fill-opacity: 1;
     }
 }
 
-@keyframes checkmark-fill {
+@keyframes checkmark-fill-rep {
+    0% {
+        fill-opacity: 0;
+    }
     100% {
-        box-shadow: inset 0px 0px 0px 30px #22c55e;
+        fill: #ef4444;
+        fill-opacity: 1;
+    }
+}
+
+@keyframes victory-burst {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 0.6;
+    }
+    100% {
+        width: 300px;
+        height: 300px;
+        opacity: 0;
     }
 }
 
@@ -709,10 +792,6 @@ body {
    ============================================ */
 
 @media (max-width: 1400px) {
-    .content-grid {
-        grid-template-columns: 1fr 450px;
-    }
-
     .county-row {
         grid-template-columns: 180px 1fr 1fr 160px;
         gap: 12px;
@@ -723,13 +802,17 @@ body {
 @media (max-width: 1200px) {
     .content-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
     }
 
     .projection-panel {
+        height: auto;
         max-height: none;
+        order: -1;
     }
 
     .county-input-section {
+        height: auto;
         max-height: 600px;
     }
 }
