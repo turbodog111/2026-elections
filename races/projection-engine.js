@@ -128,7 +128,10 @@ class RaceProjection {
             demInput.step = '1';
             demInput.id = `dem-${sanitizedCounty}`;
             demInput.dataset.county = county;
-            demInput.oninput = () => this.updateVoteTotals();
+            demInput.oninput = () => {
+                this.updateVoteTotals();
+                this.calculateAdvancedProjection();
+            };
             // Load saved value
             if (this.voteData[county] && this.voteData[county].dem > 0) {
                 demInput.value = this.voteData[county].dem;
@@ -143,7 +146,10 @@ class RaceProjection {
             repInput.step = '1';
             repInput.id = `rep-${sanitizedCounty}`;
             repInput.dataset.county = county;
-            repInput.oninput = () => this.updateVoteTotals();
+            repInput.oninput = () => {
+                this.updateVoteTotals();
+                this.calculateAdvancedProjection();
+            };
             // Load saved value
             if (this.voteData[county] && this.voteData[county].rep > 0) {
                 repInput.value = this.voteData[county].rep;
