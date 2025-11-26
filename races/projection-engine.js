@@ -94,7 +94,10 @@ class RaceProjection {
             console.error('County list container not found!');
             return;
         }
-        container.innerHTML = '';
+
+        // Create wrapper for county list for better scrolling
+        container.innerHTML = '<div class="county-list-container" id="county-list-wrapper"></div>';
+        const wrapper = document.getElementById('county-list-wrapper');
 
         this.counties.forEach(county => {
             const row = document.createElement('div');
@@ -157,7 +160,7 @@ class RaceProjection {
             row.appendChild(repInput);
             row.appendChild(performanceDiv);
 
-            container.appendChild(row);
+            wrapper.appendChild(row);
         });
 
         // Update totals with loaded data
@@ -248,6 +251,9 @@ class RaceProjection {
         document.getElementById('total-votes').textContent = totalVotesReported.toLocaleString();
         document.getElementById('remaining-votes').textContent = remainingVotes.toLocaleString();
         document.getElementById('percent-reported').textContent = percentReported + '%';
+
+        // Update progress bar
+        this.updateProgressBar(totalVotesReported, expectedTotalVotes, percentReported);
 
         if (totalVotesReported > 0) {
             const demPct = (totalDem / totalVotesReported * 100).toFixed(1);
@@ -538,13 +544,68 @@ class RaceProjection {
         document.getElementById('rep-bar').style.width = '50%';
         document.getElementById('rep-bar').textContent = '50%';
 
+        // Reset progress bar
+        this.updateProgressBar(0, expectedTotal, 0);
+
         const resultDiv = document.getElementById('projection-result');
         resultDiv.className = 'projection-result tossup';
         document.getElementById('projection-text').textContent = 'Too Close To Call';
         document.getElementById('projection-confidence').textContent = 'Enter vote data to see projection';
     }
 
+    createProgressBar() {
+        // Find the vote-bar element and insert progress bar after it
+        const voteBar = document.querySelector('.vote-bar');
+        if (!voteBar) {
+            console.warn('Vote bar not found, progress bar not created');
+            return;
+        }
+
+        // Create progress bar HTML
+        const progressHTML = `
+            <div class="vote-progress-container" id="vote-progress">
+                <div class="vote-progress-header">
+                    <span class="vote-progress-label">Votes Reported</span>
+                    <span class="vote-progress-percentage" id="progress-percentage">0%</span>
+                </div>
+                <div class="vote-progress-bar-container">
+                    <div class="vote-progress-bar-fill" id="progress-bar-fill" style="width: 0%"></div>
+                </div>
+                <div class="vote-progress-text">
+                    <span id="progress-reported">0 votes</span>
+                    <span id="progress-expected">0 expected</span>
+                </div>
+            </div>
+        `;
+
+        voteBar.insertAdjacentHTML('afterend', progressHTML);
+    }
+
+    updateProgressBar(reportedVotes, expectedVotes, percentReported) {
+        const progressPercentage = document.getElementById('progress-percentage');
+        const progressBarFill = document.getElementById('progress-bar-fill');
+        const progressReported = document.getElementById('progress-reported');
+        const progressExpected = document.getElementById('progress-expected');
+
+        if (progressPercentage) {
+            progressPercentage.textContent = percentReported + '%';
+        }
+
+        if (progressBarFill) {
+            progressBarFill.style.width = percentReported + '%';
+        }
+
+        if (progressReported) {
+            progressReported.textContent = reportedVotes.toLocaleString() + ' votes';
+        }
+
+        if (progressExpected) {
+            progressExpected.textContent = expectedVotes.toLocaleString() + ' expected';
+        }
+    }
+
     initialize() {
         this.generateCountyInputs();
+        this.createProgressBar();
     }
 }
