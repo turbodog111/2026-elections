@@ -10,7 +10,7 @@
     <div class="container">
         <div class="header">
             <h1>Alaska Senate Race - 2026</h1>
-            <div class="version-badge">v1.9</div>
+            <div class="version-badge">v1.10 • KEY RACE</div>
             <a href="../index.html" class="back-link">← Back to Map</a>
         </div>
 
@@ -35,6 +35,7 @@
                 <div class="vote-bar">
                     <div class="dem-bar" id="dem-bar" style="width: 50%;">50%</div>
                     <div class="rep-bar" id="rep-bar" style="width: 50%;">50%</div>
+                    <div class="other-bar" id="other-bar" style="width: 0%; display: none;">0%</div>
                 </div>
 
                                 <div class="projection-details">
@@ -78,7 +79,7 @@
         </div>
     </div>
 
-    <script src="projection-engine.js?v=9"></script>
+    <script src="projection-engine.js?v=10"></script>
     <script>
         // Alaska boroughs and census areas (major areas)
         const counties = [
@@ -114,8 +115,15 @@
             }
         });
 
+        // Key race configuration
+        const raceConfig = {
+            isKeyRace: true,
+            expectedTurnout: 277480,
+            expectedIndependent: 11377
+        };
+
         // Initialize projection system
-        const projection = new RaceProjection('Alaska', counties, historicalData);
+        const projection = new RaceProjection('Alaska', counties, historicalData, raceConfig);
         projection.initialize();
     </script>
 </body>

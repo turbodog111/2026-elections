@@ -33,13 +33,18 @@ const PROJECTION_CONFIG = {
 };
 
 class RaceProjection {
-    constructor(stateName, counties, historicalData) {
+    constructor(stateName, counties, historicalData, raceConfig = {}) {
         this.stateName = stateName;
         this.counties = counties;
         this.historicalData = historicalData;
         this.voteData = {};
         this.storageKey = `election-2026-${stateName.toLowerCase().replace(/\s/g, '-')}`;
         this.storageAvailable = true; // Track if localStorage is working
+
+        // Key race configuration
+        this.isKeyRace = raceConfig.isKeyRace || false;
+        this.expectedTurnout = raceConfig.expectedTurnout || null;
+        this.expectedIndependent = raceConfig.expectedIndependent || 0;
 
         // Try to load saved data first
         this.loadFromStorage();
@@ -178,13 +183,17 @@ class RaceProjection {
         let totalRep = 0;
         let expectedTotalVotes = 0;
 
-        // Calculate expected total from historical data
-        this.counties.forEach(county => {
-            const historical = this.historicalData[county];
-            if (historical && historical.turnout) {
-                expectedTotalVotes += historical.turnout;
-            }
-        });
+        // Calculate expected total - use key race data if available, otherwise sum historical
+        if (this.isKeyRace && this.expectedTurnout) {
+            expectedTotalVotes = this.expectedTurnout;
+        } else {
+            this.counties.forEach(county => {
+                const historical = this.historicalData[county];
+                if (historical && historical.turnout) {
+                    expectedTotalVotes += historical.turnout;
+                }
+            });
+        }
 
         // Calculate actual reported votes and update performance indicators
         this.counties.forEach(county => {
@@ -247,27 +256,48 @@ class RaceProjection {
         });
 
         const totalVotesReported = totalDem + totalRep;
-        const remainingVotes = Math.max(0, expectedTotalVotes - totalVotesReported);
-        const percentReported = expectedTotalVotes > 0 ? (totalVotesReported / expectedTotalVotes * 100).toFixed(1) : 0;
+
+        // Calculate independent/other votes (scaled by reporting percentage)
+        const reportingPercentage = expectedTotalVotes > 0 ? totalVotesReported / expectedTotalVotes : 0;
+        const projectedOtherVotes = this.isKeyRace && this.expectedIndependent > 0 ?
+            Math.round(this.expectedIndependent * reportingPercentage) : 0;
+
+        const totalVotesWithOther = totalVotesReported + projectedOtherVotes;
+        const remainingVotes = Math.max(0, expectedTotalVotes - totalVotesWithOther);
+        const percentReported = expectedTotalVotes > 0 ? (totalVotesWithOther / expectedTotalVotes * 100).toFixed(1) : 0;
 
         // Update displays
         document.getElementById('dem-votes').textContent = totalDem.toLocaleString();
         document.getElementById('rep-votes').textContent = totalRep.toLocaleString();
         document.getElementById('expected-votes').textContent = expectedTotalVotes.toLocaleString();
-        document.getElementById('total-votes').textContent = totalVotesReported.toLocaleString();
+        document.getElementById('total-votes').textContent = totalVotesWithOther.toLocaleString();
         document.getElementById('remaining-votes').textContent = remainingVotes.toLocaleString();
         document.getElementById('percent-reported').textContent = percentReported + '%';
 
         // Update progress bar
-        this.updateProgressBar(totalVotesReported, expectedTotalVotes, percentReported);
+        this.updateProgressBar(totalVotesWithOther, expectedTotalVotes, percentReported);
 
-        if (totalVotesReported > 0) {
-            const demPct = (totalDem / totalVotesReported * 100).toFixed(1);
-            const repPct = (totalRep / totalVotesReported * 100).toFixed(1);
+        if (totalVotesWithOther > 0) {
+            const demPct = (totalDem / totalVotesWithOther * 100).toFixed(1);
+            const repPct = (totalRep / totalVotesWithOther * 100).toFixed(1);
+            const otherPct = (projectedOtherVotes / totalVotesWithOther * 100).toFixed(1);
+
             document.getElementById('dem-bar').style.width = demPct + '%';
             document.getElementById('dem-bar').textContent = demPct + '%';
             document.getElementById('rep-bar').style.width = repPct + '%';
             document.getElementById('rep-bar').textContent = repPct + '%';
+
+            // Update or hide other bar based on whether there are independent votes
+            const otherBar = document.getElementById('other-bar');
+            if (otherBar) {
+                if (projectedOtherVotes > 0) {
+                    otherBar.style.width = otherPct + '%';
+                    otherBar.textContent = otherPct + '%';
+                    otherBar.style.display = 'flex';
+                } else {
+                    otherBar.style.display = 'none';
+                }
+            }
 
             const margin = Math.abs(totalDem - totalRep);
             const marginPct = (margin / totalVotesReported * 100).toFixed(2);
@@ -549,6 +579,12 @@ class RaceProjection {
         document.getElementById('dem-bar').textContent = '50%';
         document.getElementById('rep-bar').style.width = '50%';
         document.getElementById('rep-bar').textContent = '50%';
+
+        // Hide other bar on reset
+        const otherBar = document.getElementById('other-bar');
+        if (otherBar) {
+            otherBar.style.display = 'none';
+        }
 
         // Reset progress bar
         this.updateProgressBar(0, expectedTotal, 0);
