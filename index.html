@@ -413,16 +413,48 @@
             const rowSizes = [30, 28, 24, 18]; // Front to back
             const totalSeats = 100;
 
-            // Calculate seats per row for each party
-            rowSizes.forEach(size => {
+            // Track running totals to ensure exact seat counts
+            let demSeatsRemaining = state.demSeats;
+            let repSeatsRemaining = state.repSeats;
+            let uncalledSeatsRemaining = state.uncalledSeats;
+
+            rowSizes.forEach((size, rowIndex) => {
                 const row = document.createElement('div');
                 row.className = 'row';
 
-                // Calculate proportional distribution for this row
-                const proportion = size / totalSeats;
-                const demInRow = Math.round(state.demSeats * proportion);
-                const repInRow = Math.round(state.repSeats * proportion);
-                const uncalledInRow = size - demInRow - repInRow;
+                // For last row, use remaining seats to avoid rounding errors
+                const isLastRow = rowIndex === rowSizes.length - 1;
+
+                let demInRow, repInRow, uncalledInRow;
+
+                if (isLastRow) {
+                    // Use all remaining seats in last row
+                    demInRow = demSeatsRemaining;
+                    repInRow = repSeatsRemaining;
+                    uncalledInRow = uncalledSeatsRemaining;
+                } else {
+                    // Calculate proportional distribution for this row
+                    const proportion = size / totalSeats;
+                    demInRow = Math.floor(state.demSeats * proportion);
+                    repInRow = Math.floor(state.repSeats * proportion);
+                    uncalledInRow = Math.floor(state.uncalledSeats * proportion);
+
+                    // Ensure we don't exceed remaining seats
+                    demInRow = Math.min(demInRow, demSeatsRemaining);
+                    repInRow = Math.min(repInRow, repSeatsRemaining);
+                    uncalledInRow = Math.min(uncalledInRow, uncalledSeatsRemaining);
+
+                    // Fill any remaining slots in row with uncalled
+                    const assignedInRow = demInRow + repInRow + uncalledInRow;
+                    if (assignedInRow < size && uncalledSeatsRemaining > uncalledInRow) {
+                        uncalledInRow += (size - assignedInRow);
+                    }
+                }
+
+                // Update remaining counts
+                demSeatsRemaining -= demInRow;
+                repSeatsRemaining -= repInRow;
+                uncalledSeatsRemaining -= uncalledInRow;
 
                 // Create array of seat types for this row
                 const seatTypes = [];
@@ -526,7 +558,7 @@
             const projectionLink = document.createElement('a');
             projectionLink.className = 'projection-link';
             projectionLink.textContent = 'Project';
-            projectionLink.href = `races/${raceName.toLowerCase().replace(' ', '-')}.html`;
+            projectionLink.href = `races/${raceName.toLowerCase().replace(/ /g, '-')}.html`;
 
             buttonsDiv.appendChild(demBtn);
             buttonsDiv.appendChild(repBtn);

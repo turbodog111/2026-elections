@@ -4,322 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Georgia Senate Race - 2026 Projection</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .header {
-            background: white;
-            border-radius: 12px;
-            padding: 20px 30px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header h1 {
-            color: #1e3c72;
-            font-size: 2em;
-        }
-
-        .back-link {
-            padding: 10px 20px;
-            background: #6b7280;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .back-link:hover {
-            background: #4b5563;
-            transform: translateY(-1px);
-        }
-
-        .content-grid {
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 20px;
-        }
-
-        .projection-panel {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .projection-result {
-            text-align: center;
-            padding: 30px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-        }
-
-        .projection-result.dem {
-            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-            border: 3px solid #3b82f6;
-        }
-
-        .projection-result.rep {
-            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
-            border: 3px solid #ef4444;
-        }
-
-        .projection-result.tossup {
-            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
-            border: 3px solid #6b7280;
-        }
-
-        .projection-result h2 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        .projection-result.dem h2 { color: #1e40af; }
-        .projection-result.rep h2 { color: #b91c1c; }
-        .projection-result.tossup h2 { color: #374151; }
-
-        .projection-confidence {
-            font-size: 1.2em;
-            color: #374151;
-        }
-
-        .vote-totals {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: #f9fafb;
-            border-radius: 8px;
-        }
-
-        .vote-total {
-            text-align: center;
-        }
-
-        .vote-total .label {
-            font-size: 0.9em;
-            color: #6b7280;
-            margin-bottom: 5px;
-        }
-
-        .vote-total .number {
-            font-size: 2em;
-            font-weight: bold;
-        }
-
-        .vote-total.dem .number { color: #3b82f6; }
-        .vote-total.rep .number { color: #ef4444; }
-
-        .vote-bar {
-            height: 40px;
-            border-radius: 8px;
-            overflow: hidden;
-            display: flex;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-        }
-
-        .vote-bar .dem-bar {
-            background: #3b82f6;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            transition: width 0.5s ease;
-        }
-
-        .vote-bar .rep-bar {
-            background: #ef4444;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            transition: width 0.5s ease;
-        }
-
-        .county-input-section {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .county-input-section h2 {
-            color: #1e3c72;
-            margin-bottom: 20px;
-            position: sticky;
-            top: 0;
-            background: white;
-            padding-bottom: 10px;
-            z-index: 10;
-        }
-
-        .county-row {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 10px;
-            align-items: center;
-            padding: 12px;
-            background: #f9fafb;
-            border-radius: 6px;
-            margin-bottom: 8px;
-        }
-
-        .county-row:hover {
-            background: #f3f4f6;
-        }
-
-        .county-name {
-            font-weight: 600;
-            color: #1f2937;
-        }
-
-        .county-input {
-            padding: 8px;
-            border: 2px solid #e5e7eb;
-            border-radius: 4px;
-            font-size: 0.95em;
-            width: 100%;
-        }
-
-        .county-input:focus {
-            outline: none;
-            border-color: #3b82f6;
-        }
-
-        .county-input.dem-input:focus {
-            border-color: #3b82f6;
-        }
-
-        .county-input.rep-input:focus {
-            border-color: #ef4444;
-        }
-
-        .controls {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 2px solid #e5e7eb;
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            flex: 1;
-        }
-
-        .btn-calculate {
-            background: #8b5cf6;
-            color: white;
-        }
-
-        .btn-calculate:hover {
-            background: #7c3aed;
-            transform: translateY(-1px);
-        }
-
-        .btn-reset {
-            background: #6b7280;
-            color: white;
-        }
-
-        .btn-reset:hover {
-            background: #4b5563;
-            transform: translateY(-1px);
-        }
-
-        .projection-details {
-            margin-top: 20px;
-            padding: 20px;
-            background: #f9fafb;
-            border-radius: 8px;
-        }
-
-        .projection-details h3 {
-            color: #374151;
-            margin-bottom: 15px;
-        }
-
-        .detail-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .detail-row:last-child {
-            border-bottom: none;
-        }
-
-        .detail-label {
-            color: #6b7280;
-        }
-
-        .detail-value {
-            font-weight: 600;
-            color: #1f2937;
-        }
-
-        /* Custom scrollbar */
-        .county-input-section::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .county-input-section::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 4px;
-        }
-
-        .county-input-section::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 4px;
-        }
-
-        .county-input-section::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-
-        @media (max-width: 1024px) {
-            .content-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="race-styles.css">
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1>Georgia Senate Race - 2026</h1>
-            <div class="version-badge">v1.5</div>
+            <div class="version-badge">v1.6</div>
             <a href="../index.html" class="back-link">← Back to Map</a>
         </div>
 
@@ -378,19 +69,18 @@
 
             <div class="county-input-section">
                 <h2>County Vote Totals</h2>
-                <div id="county-list">
-                    <!-- Counties will be generated by JavaScript -->
-                </div>
+                <div id="county-list"></div>
                 <div class="controls">
-                    <button class="btn btn-calculate" onclick="calculateProjection()">Calculate Projection</button>
-                    <button class="btn btn-reset" onclick="resetVotes()">Reset All</button>
+                    <button class="btn btn-calculate" onclick="projection.calculateAdvancedProjection()">Calculate Projection</button>
+                    <button class="btn btn-reset" onclick="projection.resetVotes()">Reset All</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="projection-engine.js?v=6"></script>
     <script>
-        // Major Georgia counties (simplified list - you can expand this)
+        // Georgia counties (largest 40 by population)
         const counties = [
             'Fulton', 'DeKalb', 'Gwinnett', 'Cobb', 'Clayton', 'Cherokee', 'Forsyth', 'Henry',
             'Hall', 'Columbia', 'Chatham', 'Richmond', 'Muscogee', 'Bibb', 'Clarke', 'Houston',
@@ -399,8 +89,7 @@
             'Rockdale', 'Camden', 'Coffee', 'Liberty', 'Baldwin', 'Burke', 'Catoosa', 'Effingham'
         ];
 
-        // Historical data (2022 Senate runoff as baseline - Warnock vs Walker)
-        // This is simplified - in reality you'd have more detailed historical data
+        // Historical data (2022 Senate runoff - Warnock vs Walker)
         const historicalData = {
             'Fulton': { demShare: 0.72, turnout: 420000 },
             'DeKalb': { demShare: 0.83, turnout: 353000 },
@@ -409,187 +98,44 @@
             'Clayton': { demShare: 0.85, turnout: 118000 },
             'Cherokee': { demShare: 0.32, turnout: 122000 },
             'Forsyth': { demShare: 0.31, turnout: 118000 },
-            // Add more counties with default values
+            'Henry': { demShare: 0.67, turnout: 112000 },
+            'Hall': { demShare: 0.35, turnout: 91000 },
+            'Columbia': { demShare: 0.44, turnout: 75000 },
+            'Chatham': { demShare: 0.58, turnout: 127000 },
+            'Richmond': { demShare: 0.63, turnout: 85000 },
+            'Muscogee': { demShare: 0.61, turnout: 80000 },
+            'Bibb': { demShare: 0.59, turnout: 68000 },
+            'Clarke': { demShare: 0.66, turnout: 59000 },
+            'Houston': { demShare: 0.43, turnout: 67000 },
+            'Paulding': { demShare: 0.42, turnout: 71000 },
+            'Coweta': { demShare: 0.41, turnout: 66000 },
+            'Fayette': { demShare: 0.48, turnout: 59000 },
+            'Carroll': { demShare: 0.36, turnout: 48000 },
+            'Bartow': { demShare: 0.31, turnout: 47000 },
+            'Douglas': { demShare: 0.74, turnout: 62000 },
+            'Lowndes': { demShare: 0.46, turnout: 46000 },
+            'Newton': { demShare: 0.65, turnout: 48000 },
+            'Whitfield': { demShare: 0.38, turnout: 40000 },
+            'Walton': { demShare: 0.45, turnout: 44000 },
+            'Floyd': { demShare: 0.42, turnout: 42000 },
+            'Glynn': { demShare: 0.50, turnout: 43000 },
+            'Jackson': { demShare: 0.35, turnout: 35000 },
+            'Barrow': { demShare: 0.38, turnout: 38000 },
+            'Troup': { demShare: 0.51, turnout: 31000 },
+            'Dougherty': { demShare: 0.77, turnout: 39000 },
+            'Rockdale': { demShare: 0.77, turnout: 42000 },
+            'Camden': { demShare: 0.44, turnout: 24000 },
+            'Coffee': { demShare: 0.38, turnout: 17000 },
+            'Liberty': { demShare: 0.68, turnout: 21000 },
+            'Baldwin': { demShare: 0.63, turnout: 20000 },
+            'Burke': { demShare: 0.60, turnout: 10000 },
+            'Catoosa': { demShare: 0.32, turnout: 30000 },
+            'Effingham': { demShare: 0.33, turnout: 28000 }
         };
 
-        // Fill in missing counties with neutral baseline
-        counties.forEach(county => {
-            if (!historicalData[county]) {
-                historicalData[county] = { demShare: 0.50, turnout: 47000 };
-            }
-        });
-
-        // State-level data
-        let voteData = {};
-        counties.forEach(county => {
-            voteData[county] = { dem: 0, rep: 0 };
-        });
-
-        // Generate county input rows
-        function generateCountyInputs() {
-            const container = document.getElementById('county-list');
-            container.innerHTML = '';
-
-            counties.forEach(county => {
-                const row = document.createElement('div');
-                row.className = 'county-row';
-
-                const nameDiv = document.createElement('div');
-                nameDiv.className = 'county-name';
-                nameDiv.textContent = county + ' County';
-
-                const demInput = document.createElement('input');
-                demInput.type = 'number';
-                demInput.className = 'county-input dem-input';
-                demInput.placeholder = 'Dem votes';
-                demInput.min = '0';
-                demInput.id = `dem-${county}`;
-                demInput.oninput = () => updateVoteTotals();
-
-                const repInput = document.createElement('input');
-                repInput.type = 'number';
-                repInput.className = 'county-input rep-input';
-                repInput.placeholder = 'Rep votes';
-                repInput.min = '0';
-                repInput.id = `rep-${county}`;
-                repInput.oninput = () => updateVoteTotals();
-
-                row.appendChild(nameDiv);
-                row.appendChild(demInput);
-                row.appendChild(repInput);
-
-                container.appendChild(row);
-            });
-        }
-
-        // Update vote totals
-        function updateVoteTotals() {
-            let totalDem = 0;
-            let totalRep = 0;
-            let countiesReporting = 0;
-
-            counties.forEach(county => {
-                const demInput = document.getElementById(`dem-${county}`);
-                const repInput = document.getElementById(`rep-${county}`);
-
-                const demVotes = parseInt(demInput.value) || 0;
-                const repVotes = parseInt(repInput.value) || 0;
-
-                voteData[county] = { dem: demVotes, rep: repVotes };
-
-                totalDem += demVotes;
-                totalRep += repVotes;
-
-                if (demVotes > 0 || repVotes > 0) {
-                    countiesReporting++;
-                }
-            });
-
-            document.getElementById('dem-votes').textContent = totalDem.toLocaleString();
-            document.getElementById('rep-votes').textContent = totalRep.toLocaleString();
-            document.getElementById('total-votes').textContent = (totalDem + totalRep).toLocaleString();
-            document.getElementById('counties-reporting').textContent = `${countiesReporting} / ${counties.length}`;
-
-            const totalVotes = totalDem + totalRep;
-            if (totalVotes > 0) {
-                const demPct = (totalDem / totalVotes * 100).toFixed(1);
-                const repPct = (totalRep / totalVotes * 100).toFixed(1);
-                document.getElementById('dem-bar').style.width = demPct + '%';
-                document.getElementById('dem-bar').textContent = demPct + '%';
-                document.getElementById('rep-bar').style.width = repPct + '%';
-                document.getElementById('rep-bar').textContent = repPct + '%';
-
-                const margin = Math.abs(totalDem - totalRep);
-                const marginPct = (margin / totalVotes * 100).toFixed(2);
-                document.getElementById('vote-margin').textContent = margin.toLocaleString();
-                document.getElementById('pct-margin').textContent = marginPct + '%';
-            }
-        }
-
-        // Calculate projection
-        function calculateProjection() {
-            let totalDem = 0;
-            let totalRep = 0;
-
-            counties.forEach(county => {
-                totalDem += voteData[county].dem;
-                totalRep += voteData[county].rep;
-            });
-
-            const totalVotes = totalDem + totalRep;
-
-            if (totalVotes === 0) {
-                alert('Please enter some vote data first!');
-                return;
-            }
-
-            // Simple projection based on current margins
-            const demPct = totalDem / totalVotes;
-            const margin = Math.abs(demPct - 0.5);
-
-            const resultDiv = document.getElementById('projection-result');
-            const resultText = document.getElementById('projection-text');
-            const confidenceText = document.getElementById('projection-confidence');
-
-            // Determine projection
-            if (margin < 0.02) {
-                resultDiv.className = 'projection-result tossup';
-                resultText.textContent = 'Too Close To Call';
-                confidenceText.textContent = 'Race is within margin of error';
-            } else if (demPct > 0.5) {
-                resultDiv.className = 'projection-result dem';
-                if (margin > 0.10) {
-                    resultText.textContent = 'Likely Democrat';
-                    confidenceText.textContent = 'Strong advantage based on current returns';
-                } else if (margin > 0.05) {
-                    resultText.textContent = 'Lean Democrat';
-                    confidenceText.textContent = 'Moderate advantage based on current returns';
-                } else {
-                    resultText.textContent = 'Tilt Democrat';
-                    confidenceText.textContent = 'Slight advantage based on current returns';
-                }
-            } else {
-                resultDiv.className = 'projection-result rep';
-                if (margin > 0.10) {
-                    resultText.textContent = 'Likely Republican';
-                    confidenceText.textContent = 'Strong advantage based on current returns';
-                } else if (margin > 0.05) {
-                    resultText.textContent = 'Lean Republican';
-                    confidenceText.textContent = 'Moderate advantage based on current returns';
-                } else {
-                    resultText.textContent = 'Tilt Republican';
-                    confidenceText.textContent = 'Slight advantage based on current returns';
-                }
-            }
-        }
-
-        // Reset all votes
-        function resetVotes() {
-            counties.forEach(county => {
-                document.getElementById(`dem-${county}`).value = '';
-                document.getElementById(`rep-${county}`).value = '';
-                voteData[county] = { dem: 0, rep: 0 };
-            });
-
-            document.getElementById('dem-votes').textContent = '0';
-            document.getElementById('rep-votes').textContent = '0';
-            document.getElementById('total-votes').textContent = '0';
-            document.getElementById('counties-reporting').textContent = '0 / ' + counties.length;
-            document.getElementById('vote-margin').textContent = '-';
-            document.getElementById('pct-margin').textContent = '-';
-            document.getElementById('dem-bar').style.width = '50%';
-            document.getElementById('dem-bar').textContent = '50%';
-            document.getElementById('rep-bar').style.width = '50%';
-            document.getElementById('rep-bar').textContent = '50%';
-
-            const resultDiv = document.getElementById('projection-result');
-            resultDiv.className = 'projection-result tossup';
-            document.getElementById('projection-text').textContent = 'Too Close To Call';
-            document.getElementById('projection-confidence').textContent = 'Enter vote data to see projection';
-        }
-
-        // Initialize
-        generateCountyInputs();
+        // Initialize projection system
+        const projection = new RaceProjection('Georgia', counties, historicalData);
+        projection.initialize();
     </script>
 </body>
 </html>
