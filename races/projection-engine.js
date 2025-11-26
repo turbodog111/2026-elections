@@ -39,6 +39,7 @@ class RaceProjection {
         this.historicalData = historicalData;
         this.voteData = {};
         this.storageKey = `election-2026-${stateName.toLowerCase().replace(/\s/g, '-')}`;
+        this.storageAvailable = true; // Track if localStorage is working
 
         // Try to load saved data first
         this.loadFromStorage();
@@ -54,8 +55,14 @@ class RaceProjection {
     saveToStorage() {
         try {
             localStorage.setItem(this.storageKey, JSON.stringify(this.voteData));
+            this.storageAvailable = true;
         } catch (e) {
             console.warn('Could not save to localStorage:', e);
+            if (this.storageAvailable) {
+                // Only alert once when storage becomes unavailable
+                this.storageAvailable = false;
+                alert('⚠️ Warning: Cannot save your vote data. You may be in private browsing mode or storage is full. Your data will be lost when you close this tab.');
+            }
         }
     }
 
@@ -65,9 +72,11 @@ class RaceProjection {
             if (saved) {
                 this.voteData = JSON.parse(saved);
             }
+            this.storageAvailable = true;
         } catch (e) {
             console.warn('Could not load from localStorage:', e);
             this.voteData = {};
+            this.storageAvailable = false;
         }
     }
 
@@ -104,14 +113,16 @@ class RaceProjection {
                 <div class="historical-baseline">Historical: D ${histDemPct}% | R ${histRepPct}%</div>
             `;
 
-            // Sanitize county name for use in IDs (remove spaces, periods, etc.)
-            const sanitizedCounty = county.replace(/[\s\.]/g, '-');
+            // Sanitize county name for use in IDs (replace spaces and periods with single dash)
+            const sanitizedCounty = county.replace(/[\s\.]+/g, '-');
 
             const demInput = document.createElement('input');
             demInput.type = 'number';
             demInput.className = 'county-input dem-input';
             demInput.placeholder = 'Dem votes';
             demInput.min = '0';
+            demInput.max = '10000000'; // Max 10 million votes per county
+            demInput.step = '1';
             demInput.id = `dem-${sanitizedCounty}`;
             demInput.dataset.county = county;
             demInput.oninput = () => this.updateVoteTotals();
@@ -125,6 +136,8 @@ class RaceProjection {
             repInput.className = 'county-input rep-input';
             repInput.placeholder = 'Rep votes';
             repInput.min = '0';
+            repInput.max = '10000000'; // Max 10 million votes per county
+            repInput.step = '1';
             repInput.id = `rep-${sanitizedCounty}`;
             repInput.dataset.county = county;
             repInput.oninput = () => this.updateVoteTotals();
@@ -166,7 +179,7 @@ class RaceProjection {
 
         // Calculate actual reported votes and update performance indicators
         this.counties.forEach(county => {
-            const sanitizedCounty = county.replace(/[\s\.]/g, '-');
+            const sanitizedCounty = county.replace(/[\s\.]+/g, '-');
             const demInput = document.getElementById(`dem-${sanitizedCounty}`);
             const repInput = document.getElementById(`rep-${sanitizedCounty}`);
             const performanceDiv = document.getElementById(`performance-${sanitizedCounty}`);
@@ -176,8 +189,8 @@ class RaceProjection {
                 return;
             }
 
-            const demVotes = parseInt(demInput.value) || 0;
-            const repVotes = parseInt(repInput.value) || 0;
+            const demVotes = Math.max(0, parseInt(demInput.value) || 0);
+            const repVotes = Math.max(0, parseInt(repInput.value) || 0);
             const countyTotal = demVotes + repVotes;
 
             this.voteData[county] = { dem: demVotes, rep: repVotes };
@@ -363,7 +376,9 @@ class RaceProjection {
         });
 
         const projectedDemLeading = projectedFinalDem > projectedFinalRep;
-        const projectedMargin = Math.abs(projectedFinalDem - projectedFinalRep) / (projectedFinalDem + projectedFinalRep);
+        const projectedTotal = projectedFinalDem + projectedFinalRep;
+        const projectedMargin = projectedTotal > 0 ?
+            Math.abs(projectedFinalDem - projectedFinalRep) / projectedTotal : 0;
 
         // Calculate certainty percentage
         // Base certainty on margin, reporting percentage, historical consistency, and projections
@@ -410,6 +425,13 @@ class RaceProjection {
         const resultDiv = document.getElementById('projection-result');
         const resultText = document.getElementById('projection-text');
         const confidenceText = document.getElementById('projection-confidence');
+
+        // Validate critical DOM elements exist
+        if (!resultDiv || !resultText || !confidenceText) {
+            console.error('Critical projection display elements not found!');
+            alert('Error: Projection display is not properly initialized. Please refresh the page.');
+            return;
+        }
 
         // Determine winner (demLeading already declared above)
         const leadingParty = demLeading ? 'Democrat' : 'Republican';
@@ -482,7 +504,7 @@ class RaceProjection {
 
     resetVotes() {
         this.counties.forEach(county => {
-            const sanitizedCounty = county.replace(/[\s\.]/g, '-');
+            const sanitizedCounty = county.replace(/[\s\.]+/g, '-');
             const demInput = document.getElementById(`dem-${sanitizedCounty}`);
             const repInput = document.getElementById(`rep-${sanitizedCounty}`);
 
