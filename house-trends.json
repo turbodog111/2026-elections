@@ -1,0 +1,1016 @@
+{
+  "ALABAMA": {
+    "2020": {
+      "demShare": 0.3006729977612836,
+      "demVotes": 608809,
+      "repVotes": 1416012,
+      "totalVotes": 2024821
+    },
+    "2022": {
+      "demShare": 0.2526224628905739,
+      "demVotes": 318540,
+      "repVotes": 942393,
+      "totalVotes": 1339684
+    },
+    "2024": {
+      "demShare": 0.25565344204176615,
+      "demVotes": 518197,
+      "repVotes": 1508754,
+      "totalVotes": 2026951
+    }
+  },
+  "ALASKA": {
+    "2020": {
+      "demShare": 0.4541595877061895,
+      "demVotes": 159856,
+      "repVotes": 192126,
+      "totalVotes": 351982
+    },
+    "2022": {
+      "demShare": 0.4983988027852302,
+      "demVotes": 128553,
+      "repVotes": 129379,
+      "totalVotes": 262502
+    },
+    "2024": {
+      "demShare": 0.49476717490777244,
+      "demVotes": 156245,
+      "repVotes": 159550,
+      "totalVotes": 328805
+    }
+  },
+  "ARIZONA": {
+    "2020": {
+      "demShare": 0.4985926457708684,
+      "demVotes": 1629318,
+      "repVotes": 1638516,
+      "totalVotes": 3268249
+    },
+    "2022": {
+      "demShare": 0.43120635453500716,
+      "demVotes": 1004462,
+      "repVotes": 1324961,
+      "totalVotes": 2348274
+    },
+    "2024": {
+      "demShare": 0.4799259017687905,
+      "demVotes": 1551085,
+      "repVotes": 1680841,
+      "totalVotes": 3253758
+    }
+  },
+  "ARKANSAS": {
+    "2020": {
+      "demShare": 0.28520795235559665,
+      "demVotes": 330485,
+      "repVotes": 828266,
+      "totalVotes": 1179396
+    },
+    "2022": {
+      "demShare": 0.31246270570069595,
+      "demVotes": 271771,
+      "repVotes": 598000,
+      "totalVotes": 895102
+    },
+    "2024": {
+      "demShare": 0.31942292692829594,
+      "demVotes": 358749,
+      "repVotes": 764367,
+      "totalVotes": 1144800
+    }
+  },
+  "CALIFORNIA": {
+    "2020": {
+      "demShare": 0.6627383922930247,
+      "demVotes": 11084234,
+      "repVotes": 5640667,
+      "totalVotes": 16724901
+    },
+    "2022": {
+      "demShare": 0.6359974246003853,
+      "demVotes": 6743737,
+      "repVotes": 3859666,
+      "totalVotes": 10656368
+    },
+    "2024": {
+      "demShare": 0.6065463964361891,
+      "demVotes": 9138709,
+      "repVotes": 5928084,
+      "totalVotes": 15111243
+    }
+  },
+  "COLORADO": {
+    "2020": {
+      "demShare": 0.5491943872043961,
+      "demVotes": 1679052,
+      "repVotes": 1378248,
+      "totalVotes": 3164950
+    },
+    "2022": {
+      "demShare": 0.5650696680622764,
+      "demVotes": 1365427,
+      "repVotes": 1050960,
+      "totalVotes": 2471874
+    },
+    "2024": {
+      "demShare": 0.5607283357644152,
+      "demVotes": 1667213,
+      "repVotes": 1306086,
+      "totalVotes": 3073214
+    }
+  },
+  "CONNECTICUT": {
+    "2020": {
+      "demShare": 0.6018398980371205,
+      "demVotes": 1022792,
+      "repVotes": 676650,
+      "totalVotes": 1772927
+    },
+    "2022": {
+      "demShare": 0.5775540629228413,
+      "demVotes": 712823,
+      "repVotes": 521387,
+      "totalVotes": 1261351
+    },
+    "2024": {
+      "demShare": 0.5896996187646822,
+      "demVotes": 981762,
+      "repVotes": 683089,
+      "totalVotes": 1701702
+    }
+  },
+  "DELAWARE": {
+    "2020": {
+      "demShare": 0.5889437265317912,
+      "demVotes": 281382,
+      "repVotes": 196392,
+      "totalVotes": 488270
+    },
+    "2022": {
+      "demShare": 0.5635073290442396,
+      "demVotes": 178416,
+      "repVotes": 138201,
+      "totalVotes": 321649
+    },
+    "2024": {
+      "demShare": 0.5786272002830515,
+      "demVotes": 287830,
+      "repVotes": 209606,
+      "totalVotes": 497436
+    }
+  },
+  "DISTRICT OF COLUMBIA": {
+    "2020": {
+      "demShare": 1.0,
+      "demVotes": 299388,
+      "repVotes": 0,
+      "totalVotes": 341914
+    },
+    "2024": {
+      "demShare": 0.9271484123034961,
+      "demVotes": 251540,
+      "repVotes": 19765,
+      "totalVotes": 654950
+    }
+  },
+  "FLORIDA": {
+    "2020": {
+      "demShare": 0.47469728039802334,
+      "demVotes": 4942287,
+      "repVotes": 5469163,
+      "totalVotes": 10464790
+    },
+    "2022": {
+      "demShare": 0.4048687323034642,
+      "demVotes": 2905702,
+      "repVotes": 4271197,
+      "totalVotes": 7332046
+    },
+    "2024": {
+      "demShare": 0.42071380507677575,
+      "demVotes": 4339734,
+      "repVotes": 5975435,
+      "totalVotes": 10327700
+    }
+  },
+  "GEORGIA": {
+    "2020": {
+      "demShare": 0.4900371353654204,
+      "demVotes": 2393089,
+      "repVotes": 2490396,
+      "totalVotes": 4883611
+    },
+    "2022": {
+      "demShare": 0.47685505460678207,
+      "demVotes": 1863870,
+      "repVotes": 2044802,
+      "totalVotes": 3908672
+    },
+    "2024": {
+      "demShare": 0.47399954293296104,
+      "demVotes": 2434984,
+      "repVotes": 2702118,
+      "totalVotes": 5137102
+    }
+  },
+  "HAWAII": {
+    "2020": {
+      "demShare": 0.695643136847348,
+      "demVotes": 354762,
+      "repVotes": 155215,
+      "totalVotes": 579784
+    },
+    "2022": {
+      "demShare": 0.6866737029218976,
+      "demVotes": 271953,
+      "repVotes": 124091,
+      "totalVotes": 419363
+    },
+    "2024": {
+      "demShare": 0.7026696035991598,
+      "demVotes": 330488,
+      "repVotes": 139844,
+      "totalVotes": 522236
+    }
+  },
+  "IDAHO": {
+    "2020": {
+      "demShare": 0.3127919445342108,
+      "demVotes": 255531,
+      "repVotes": 561405,
+      "totalVotes": 849909
+    },
+    "2022": {
+      "demShare": 0.31404116957116185,
+      "demVotes": 180997,
+      "repVotes": 395351,
+      "totalVotes": 583628
+    },
+    "2024": {
+      "demShare": 0.2964519225763964,
+      "demVotes": 244885,
+      "repVotes": 581168,
+      "totalVotes": 917590
+    }
+  },
+  "ILLINOIS": {
+    "2020": {
+      "demShare": 0.5812968088232033,
+      "demVotes": 3355487,
+      "repVotes": 2416929,
+      "totalVotes": 5876819
+    },
+    "2022": {
+      "demShare": 0.5621981697182501,
+      "demVotes": 2271361,
+      "repVotes": 1768782,
+      "totalVotes": 4049187
+    },
+    "2024": {
+      "demShare": 0.5291570763844702,
+      "demVotes": 2829169,
+      "repVotes": 2517389,
+      "totalVotes": 5357262
+    }
+  },
+  "INDIANA": {
+    "2020": {
+      "demShare": 0.4073091981786487,
+      "demVotes": 1194901,
+      "repVotes": 1738745,
+      "totalVotes": 2996444
+    },
+    "2022": {
+      "demShare": 0.3925842015587228,
+      "demVotes": 716348,
+      "repVotes": 1108351,
+      "totalVotes": 1856493
+    },
+    "2024": {
+      "demShare": 0.39806760357302867,
+      "demVotes": 1103484,
+      "repVotes": 1668618,
+      "totalVotes": 2868094
+    }
+  },
+  "IOWA": {
+    "2020": {
+      "demShare": 0.4700475861894605,
+      "demVotes": 762271,
+      "repVotes": 859418,
+      "totalVotes": 1697855
+    },
+    "2022": {
+      "demShare": 0.43714404097924386,
+      "demVotes": 526460,
+      "repVotes": 677857,
+      "totalVotes": 1229068
+    },
+    "2024": {
+      "demShare": 0.4348586401565417,
+      "demVotes": 696033,
+      "repVotes": 904563,
+      "totalVotes": 1605977
+    }
+  },
+  "KANSAS": {
+    "2020": {
+      "demShare": 0.417999093879486,
+      "demVotes": 557258,
+      "repVotes": 775898,
+      "totalVotes": 1358953
+    },
+    "2022": {
+      "demShare": 0.42750698821677596,
+      "demVotes": 425322,
+      "repVotes": 569567,
+      "totalVotes": 1001817
+    },
+    "2024": {
+      "demShare": 0.41249819682515787,
+      "demVotes": 526153,
+      "repVotes": 749375,
+      "totalVotes": 1305649
+    }
+  },
+  "KENTUCKY": {
+    "2020": {
+      "demShare": 0.35030244600437366,
+      "demVotes": 735419,
+      "repVotes": 1363964,
+      "totalVotes": 2115895
+    },
+    "2022": {
+      "demShare": 0.3399219092421707,
+      "demVotes": 490921,
+      "repVotes": 953296,
+      "totalVotes": 1454328
+    },
+    "2024": {
+      "demShare": 0.2688568079850784,
+      "demVotes": 511998,
+      "repVotes": 1392354,
+      "totalVotes": 1904352
+    }
+  },
+  "LOUISIANA": {
+    "2020": {
+      "demShare": 0.3468460177666306,
+      "demVotes": 727402,
+      "repVotes": 1369788,
+      "totalVotes": 2147135
+    },
+    "2022": {
+      "demShare": 0.2918928021643112,
+      "demVotes": 318932,
+      "repVotes": 773702,
+      "totalVotes": 1133125
+    },
+    "2024": {
+      "demShare": 0.3427370154986711,
+      "demVotes": 650836,
+      "repVotes": 1248101,
+      "totalVotes": 1905718
+    }
+  },
+  "MAINE": {
+    "2020": {
+      "demShare": 0.5795475609665676,
+      "demVotes": 468978,
+      "repVotes": 340236,
+      "totalVotes": 828257
+    },
+    "2022": {
+      "demShare": 0.5205774249011575,
+      "demVotes": 1384889,
+      "repVotes": 1275405,
+      "totalVotes": 3013849
+    },
+    "2024": {
+      "demShare": 0.5613223601337782,
+      "demVotes": 446949,
+      "repVotes": 349294,
+      "totalVotes": 1234099
+    }
+  },
+  "MARYLAND": {
+    "2020": {
+      "demShare": 0.6503949484679807,
+      "demVotes": 1912740,
+      "repVotes": 1028150,
+      "totalVotes": 2947893
+    },
+    "2022": {
+      "demShare": 0.6516172034134766,
+      "demVotes": 1291446,
+      "repVotes": 690463,
+      "totalVotes": 1992958
+    },
+    "2024": {
+      "demShare": 0.6467791480248658,
+      "demVotes": 1863416,
+      "repVotes": 1017654,
+      "totalVotes": 2935328
+    }
+  },
+  "MASSACHUSETTS": {
+    "2020": {
+      "demShare": 0.7802986990495654,
+      "demVotes": 2482596,
+      "repVotes": 699001,
+      "totalVotes": 3635377
+    },
+    "2022": {
+      "demShare": 0.6983641958185209,
+      "demVotes": 1636400,
+      "repVotes": 706790,
+      "totalVotes": 2511461
+    },
+    "2024": {
+      "demShare": 0.8868432094961612,
+      "demVotes": 2386143,
+      "repVotes": 304460,
+      "totalVotes": 3511831
+    }
+  },
+  "MICHIGAN": {
+    "2020": {
+      "demShare": 0.506656668691891,
+      "demVotes": 2688527,
+      "repVotes": 2617881,
+      "totalVotes": 5423140
+    },
+    "2022": {
+      "demShare": 0.5118493673066041,
+      "demVotes": 2184504,
+      "repVotes": 2083361,
+      "totalVotes": 4375526
+    },
+    "2024": {
+      "demShare": 0.49358942048735954,
+      "demVotes": 2634228,
+      "repVotes": 2702653,
+      "totalVotes": 5516870
+    }
+  },
+  "MINNESOTA": {
+    "2020": {
+      "demShare": 0.42671938123227227,
+      "demVotes": 1097777,
+      "repVotes": 1474820,
+      "totalVotes": 3189307
+    },
+    "2022": {
+      "demShare": 0.39338502727823804,
+      "demVotes": 778745,
+      "repVotes": 1200855,
+      "totalVotes": 2489854
+    },
+    "2024": {
+      "demShare": 0.3217764787294444,
+      "demVotes": 735619,
+      "repVotes": 1550499,
+      "totalVotes": 3139733
+    }
+  },
+  "MISSISSIPPI": {
+    "2020": {
+      "demShare": 0.34288827752014506,
+      "demVotes": 421014,
+      "repVotes": 806832,
+      "totalVotes": 1227846
+    },
+    "2022": {
+      "demShare": 0.3560467222560029,
+      "demVotes": 251202,
+      "repVotes": 454329,
+      "totalVotes": 709100
+    },
+    "2024": {
+      "demShare": 0.3012099880325185,
+      "demVotes": 350353,
+      "repVotes": 812799,
+      "totalVotes": 1163152
+    }
+  },
+  "MISSOURI": {
+    "2020": {
+      "demShare": 0.40472639744872185,
+      "demVotes": 1172135,
+      "repVotes": 1723982,
+      "totalVotes": 2973421
+    },
+    "2022": {
+      "demShare": 0.3938273898429353,
+      "demVotes": 794978,
+      "repVotes": 1223617,
+      "totalVotes": 2060085
+    },
+    "2024": {
+      "demShare": 0.3968211889713511,
+      "demVotes": 1125671,
+      "repVotes": 1711050,
+      "totalVotes": 2924861
+    }
+  },
+  "MONTANA": {
+    "2020": {
+      "demShare": 0.43613645016117797,
+      "demVotes": 262340,
+      "repVotes": 339169,
+      "totalVotes": 601509
+    },
+    "2022": {
+      "demShare": 0.3931024748282676,
+      "demVotes": 158745,
+      "repVotes": 245081,
+      "totalVotes": 463632
+    },
+    "2024": {
+      "demShare": 0.4040030143385211,
+      "demVotes": 237496,
+      "repVotes": 350361,
+      "totalVotes": 597811
+    }
+  },
+  "NEBRASKA": {
+    "2020": {
+      "demShare": 0.3577693107943796,
+      "demVotes": 326018,
+      "repVotes": 585234,
+      "totalVotes": 941298
+    },
+    "2022": {
+      "demShare": 0.36232314268092547,
+      "demVotes": 235572,
+      "repVotes": 414599,
+      "totalVotes": 663187
+    },
+    "2024": {
+      "demShare": 0.3638443197273056,
+      "demVotes": 338154,
+      "repVotes": 591238,
+      "totalVotes": 929392
+    }
+  },
+  "NEVADA": {
+    "2020": {
+      "demShare": 0.5121979939246687,
+      "demVotes": 665526,
+      "repVotes": 633827,
+      "totalVotes": 1355607
+    },
+    "2022": {
+      "demShare": 0.482555110914385,
+      "demVotes": 480774,
+      "repVotes": 515535,
+      "totalVotes": 1009503
+    },
+    "2024": {
+      "demShare": 0.4353622224450188,
+      "demVotes": 534115,
+      "repVotes": 692714,
+      "totalVotes": 1427077
+    }
+  },
+  "NEW HAMPSHIRE": {
+    "2020": {
+      "demShare": 0.5389678881162591,
+      "demVotes": 413895,
+      "repVotes": 354045,
+      "totalVotes": 786806
+    },
+    "2022": {
+      "demShare": 0.5496234811578461,
+      "demVotes": 339027,
+      "repVotes": 277808,
+      "totalVotes": 617546
+    },
+    "2024": {
+      "demShare": 0.5351209755660701,
+      "demVotes": 430218,
+      "repVotes": 373746,
+      "totalVotes": 830324
+    }
+  },
+  "NEW JERSEY": {
+    "2020": {
+      "demShare": 0.5794218624313269,
+      "demVotes": 2539128,
+      "repVotes": 1843047,
+      "totalVotes": 4432923
+    },
+    "2022": {
+      "demShare": 0.5497077248958157,
+      "demVotes": 1416422,
+      "repVotes": 1160260,
+      "totalVotes": 2609716
+    },
+    "2024": {
+      "demShare": 0.5363766941736449,
+      "demVotes": 2115843,
+      "repVotes": 1828853,
+      "totalVotes": 4037126
+    }
+  },
+  "NEW MEXICO": {
+    "2020": {
+      "demShare": 0.5486931240295407,
+      "demVotes": 495781,
+      "repVotes": 407786,
+      "totalVotes": 903684
+    },
+    "2022": {
+      "demShare": 0.5506472144848775,
+      "demVotes": 387665,
+      "repVotes": 316352,
+      "totalVotes": 704017
+    },
+    "2024": {
+      "demShare": 0.5507229240890665,
+      "demVotes": 493722,
+      "repVotes": 402776,
+      "totalVotes": 896498
+    }
+  },
+  "NEW YORK": {
+    "2020": {
+      "demShare": 0.63681301321916,
+      "demVotes": 4728613,
+      "repVotes": 2696821,
+      "totalVotes": 8679777
+    },
+    "2022": {
+      "demShare": 0.5755521279699538,
+      "demVotes": 3028115,
+      "repVotes": 2233120,
+      "totalVotes": 5965824
+    },
+    "2024": {
+      "demShare": 0.5875443156555569,
+      "demVotes": 4330117,
+      "repVotes": 3039739,
+      "totalVotes": 8380426
+    }
+  },
+  "NORTH CAROLINA": {
+    "2020": {
+      "demShare": 0.5027588540990512,
+      "demVotes": 2660535,
+      "repVotes": 2631336,
+      "totalVotes": 5324819
+    },
+    "2022": {
+      "demShare": 0.47844713166790864,
+      "demVotes": 1795170,
+      "repVotes": 1956906,
+      "totalVotes": 3760401
+    },
+    "2024": {
+      "demShare": 0.4484334741832423,
+      "demVotes": 2349621,
+      "repVotes": 2889999,
+      "totalVotes": 5483155
+    }
+  },
+  "NORTH DAKOTA": {
+    "2020": {
+      "demShare": 0.0,
+      "demVotes": 0,
+      "repVotes": 245229,
+      "totalVotes": 355223
+    },
+    "2022": {
+      "demShare": 0.0,
+      "demVotes": 0,
+      "repVotes": 148399,
+      "totalVotes": 238043
+    },
+    "2024": {
+      "demShare": 0.0,
+      "demVotes": 0,
+      "repVotes": 249101,
+      "totalVotes": 358332
+    }
+  },
+  "OHIO": {
+    "2020": {
+      "demShare": 0.42975695723309093,
+      "demVotes": 2451500,
+      "repVotes": 3252887,
+      "totalVotes": 5761540
+    },
+    "2022": {
+      "demShare": 0.43571416926241363,
+      "demVotes": 1790614,
+      "repVotes": 2318993,
+      "totalVotes": 4109607
+    },
+    "2024": {
+      "demShare": 0.43418122882023225,
+      "demVotes": 2382078,
+      "repVotes": 3104290,
+      "totalVotes": 5570751
+    }
+  },
+  "OKLAHOMA": {
+    "2020": {
+      "demShare": 0.3130002776487493,
+      "demVotes": 475731,
+      "repVotes": 1044175,
+      "totalVotes": 1551383
+    },
+    "2022": {
+      "demShare": 0.31941604846697513,
+      "demVotes": 356988,
+      "repVotes": 760639,
+      "totalVotes": 1146311
+    },
+    "2024": {
+      "demShare": 0.32282763041520274,
+      "demVotes": 397856,
+      "repVotes": 834554,
+      "totalVotes": 1282107
+    }
+  },
+  "OREGON": {
+    "2020": {
+      "demShare": 0.5707227618360438,
+      "demVotes": 1285339,
+      "repVotes": 966786,
+      "totalVotes": 2304718
+    },
+    "2022": {
+      "demShare": 0.5430987882337042,
+      "demVotes": 1012725,
+      "repVotes": 851991,
+      "totalVotes": 1906940
+    },
+    "2024": {
+      "demShare": 0.5579186434666146,
+      "demVotes": 1151394,
+      "repVotes": 912337,
+      "totalVotes": 2156972
+    }
+  },
+  "PENNSYLVANIA": {
+    "2020": {
+      "demShare": 0.4936657979938067,
+      "demVotes": 3346712,
+      "repVotes": 3432595,
+      "totalVotes": 6779307
+    },
+    "2022": {
+      "demShare": 0.4741843106907501,
+      "demVotes": 2436919,
+      "repVotes": 2702262,
+      "totalVotes": 5152001
+    },
+    "2024": {
+      "demShare": 0.48953425215162905,
+      "demVotes": 3338371,
+      "repVotes": 3481113,
+      "totalVotes": 6819484
+    }
+  },
+  "RHODE ISLAND": {
+    "2020": {
+      "demShare": 0.7399143256100159,
+      "demVotes": 312636,
+      "repVotes": 109894,
+      "totalVotes": 486287
+    },
+    "2022": {
+      "demShare": 0.5735216360504187,
+      "demVotes": 201750,
+      "repVotes": 150024,
+      "totalVotes": 357263
+    },
+    "2024": {
+      "demShare": 0.6191210241185501,
+      "demVotes": 292791,
+      "repVotes": 180123,
+      "totalVotes": 483377
+    }
+  },
+  "SOUTH CAROLINA": {
+    "2020": {
+      "demShare": 0.4325392059315127,
+      "demVotes": 1076799,
+      "repVotes": 1412684,
+      "totalVotes": 2503382
+    },
+    "2022": {
+      "demShare": 0.3287100807458904,
+      "demVotes": 517129,
+      "repVotes": 1056078,
+      "totalVotes": 1579388
+    },
+    "2024": {
+      "demShare": 0.3953017017538898,
+      "demVotes": 964448,
+      "repVotes": 1475329,
+      "totalVotes": 2470736
+    }
+  },
+  "SOUTH DAKOTA": {
+    "2020": {
+      "demShare": 0.0,
+      "demVotes": 0,
+      "repVotes": 321984,
+      "totalVotes": 397732
+    },
+    "2022": {
+      "demShare": 0.0,
+      "demVotes": 0,
+      "repVotes": 253821,
+      "totalVotes": 327841
+    },
+    "2024": {
+      "demShare": 0.2795552476224825,
+      "demVotes": 117818,
+      "repVotes": 303630,
+      "totalVotes": 421448
+    }
+  },
+  "TENNESSEE": {
+    "2020": {
+      "demShare": 0.39613736889026485,
+      "demVotes": 1105537,
+      "repVotes": 1685255,
+      "totalVotes": 2841744
+    },
+    "2022": {
+      "demShare": 0.34608924658788937,
+      "demVotes": 581902,
+      "repVotes": 1099462,
+      "totalVotes": 1710424
+    },
+    "2024": {
+      "demShare": 0.34160669414555705,
+      "demVotes": 977870,
+      "repVotes": 1884691,
+      "totalVotes": 2926955
+    }
+  },
+  "TEXAS": {
+    "2020": {
+      "demShare": 0.45241604174664396,
+      "demVotes": 4896673,
+      "repVotes": 5926712,
+      "totalVotes": 11093626
+    },
+    "2022": {
+      "demShare": 0.3967876249961466,
+      "demVotes": 2999053,
+      "repVotes": 4559280,
+      "totalVotes": 7750509
+    },
+    "2024": {
+      "demShare": 0.4087788814366549,
+      "demVotes": 4310913,
+      "repVotes": 6234918,
+      "totalVotes": 10671925
+    }
+  },
+  "UTAH": {
+    "2020": {
+      "demShare": 0.3668154627044435,
+      "demVotes": 505946,
+      "repVotes": 873347,
+      "totalVotes": 1432232
+    },
+    "2022": {
+      "demShare": 0.3376873885737639,
+      "demVotes": 342078,
+      "repVotes": 670924,
+      "totalVotes": 1063230
+    },
+    "2024": {
+      "demShare": 0.3412465960534142,
+      "demVotes": 471051,
+      "repVotes": 909332,
+      "totalVotes": 1448677
+    }
+  },
+  "VERMONT": {
+    "2020": {
+      "demShare": 0.7136471073367657,
+      "demVotes": 238827,
+      "repVotes": 95830,
+      "totalVotes": 370426
+    },
+    "2022": {
+      "demShare": 0.6924293129219941,
+      "demVotes": 176494,
+      "repVotes": 78397,
+      "totalVotes": 290951
+    },
+    "2024": {
+      "demShare": 1.0,
+      "demVotes": 218398,
+      "repVotes": 0,
+      "totalVotes": 371956
+    }
+  },
+  "VIRGINIA": {
+    "2020": {
+      "demShare": 0.5239839325238533,
+      "demVotes": 2253974,
+      "repVotes": 2047635,
+      "totalVotes": 4310779
+    },
+    "2022": {
+      "demShare": 0.5181665235825195,
+      "demVotes": 1572296,
+      "repVotes": 1462049,
+      "totalVotes": 3041811
+    },
+    "2024": {
+      "demShare": 0.5189890340130839,
+      "demVotes": 2274922,
+      "repVotes": 2108450,
+      "totalVotes": 4414161
+    }
+  },
+  "WASHINGTON": {
+    "2020": {
+      "demShare": 0.6022854542909142,
+      "demVotes": 2340356,
+      "repVotes": 1545436,
+      "totalVotes": 3885792
+    },
+    "2022": {
+      "demShare": 0.5812367701406617,
+      "demVotes": 1751582,
+      "repVotes": 1261961,
+      "totalVotes": 3013543
+    },
+    "2024": {
+      "demShare": 0.5751376681803364,
+      "demVotes": 2155907,
+      "repVotes": 1592599,
+      "totalVotes": 3748506
+    }
+  },
+  "WEST VIRGINIA": {
+    "2020": {
+      "demShare": 0.32437257856644564,
+      "demVotes": 246903,
+      "repVotes": 514268,
+      "totalVotes": 761385
+    },
+    "2022": {
+      "demShare": 0.3242424898745966,
+      "demVotes": 149706,
+      "repVotes": 312004,
+      "totalVotes": 471967
+    },
+    "2024": {
+      "demShare": 0.28790641926668903,
+      "demVotes": 200813,
+      "repVotes": 496681,
+      "totalVotes": 723110
+    }
+  },
+  "WISCONSIN": {
+    "2020": {
+      "demShare": 0.48532745572431824,
+      "demVotes": 1566671,
+      "repVotes": 1661399,
+      "totalVotes": 3235981
+    },
+    "2022": {
+      "demShare": 0.4192633798765332,
+      "demVotes": 1012955,
+      "repVotes": 1403080,
+      "totalVotes": 2527689
+    },
+    "2024": {
+      "demShare": 0.48509776988451564,
+      "demVotes": 1603350,
+      "repVotes": 1701860,
+      "totalVotes": 3325593
+    }
+  },
+  "WYOMING": {
+    "2020": {
+      "demShare": 0.2638679708927184,
+      "demVotes": 66576,
+      "repVotes": 185732,
+      "totalVotes": 277978
+    },
+    "2022": {
+      "demShare": 0.2632957382310984,
+      "demVotes": 47250,
+      "repVotes": 132206,
+      "totalVotes": 193677
+    },
+    "2024": {
+      "demShare": 0.24761058918430037,
+      "demVotes": 60778,
+      "repVotes": 184680,
+      "totalVotes": 269618
+    }
+  }
+}
